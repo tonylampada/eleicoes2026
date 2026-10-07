@@ -1,0 +1,5 @@
+# Compact derived election aggregates (streamed from TSE logs; never raw jez)
+primeiro-turno/data/derived/**/*.jsonl filter=lfs diff=lfs merge=lfs -text
+primeiro-turno/data/derived/**/*.jsonl.gz filter=lfs diff=lfs merge=lfs -text
+*.jsonl filter=lfs diff=lfs merge=lfs -text
+*.jsonl.gz filter=lfs diff=lfs merge=lfs -text
