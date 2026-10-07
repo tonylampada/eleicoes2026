@@ -1,0 +1,22 @@
+{
+  "ok": 5400,
+  "fail": 0,
+  "skip": 0,
+  "bytes": 647276700,
+  "bytes_mb": 647.3,
+  "total": 59241,
+  "done_keys_at_start": 0,
+  "processed_this_run": 5400,
+  "completed": 5400,
+  "remaining_est": 53841,
+  "rate_per_sec": 8.987,
+  "eta_sec": 5991,
+  "eta_min": 99.8,
+  "elapsed_sec": 600.8,
+  "started_at": "2026-10-07T07:30:45",
+  "updated_at": "2026-10-07T07:40:46",
+  "workers": 12,
+  "target_rps": 18.0,
+  "status": "running",
+  "phase": "download"
+}

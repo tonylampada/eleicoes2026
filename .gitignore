@@ -1,0 +1,13 @@
+# Never commit raw TSE downloads
+**/*.jez
+**/logd.dat
+**/bweb_*.zip
+**/bweb_*.zip.sha512
+**/__pycache__/
+**/.herenow/
+**/node_modules/
+.env
+*.pyc
+# Local scratch / full CDN mirrors
+primeiro-turno/data/raw/
+logs_ba_ce/*.jez
