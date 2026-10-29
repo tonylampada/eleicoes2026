@@ -1,4 +1,5 @@
 # Totalizações Eleições 2026 (TSE, boletim de urna por seção) -> Parquet + DuckDB
+# make fetch     baixa o banco PRONTO do GitHub Release (sem reconstruir; exige gh auth)
 # make download   baixa/retoma os zips buweb e confere SHA-512
 # make build      converte UF por UF para Parquet (retomável)
 # make db         monta eleicoes2026.duckdb, a versão compacta e valida
@@ -10,8 +11,11 @@ MEM ?= 3GB
 THREADS ?= 6
 BUILD_FLAGS ?=          # ex.: BUILD_FLAGS=--delete-raw para apagar zips convertidos
 
-.PHONY: all deps download build db validate sizes clean-db clean-parquet dist
+.PHONY: all fetch deps download build db validate sizes clean-db clean-parquet dist
 all: download build db
+
+fetch:
+	$(PY) scripts/fetch_release.py --data $(DATA) $(FETCH_FLAGS)
 
 deps:
 	$(PY) -m pip install -r requirements.txt
@@ -38,11 +42,6 @@ clean-db:
 clean-parquet: clean-db
 	rm -rf $(DATA)/parquet/votos_secao
 
-# Copia os artefatos COMPACTOS para dist/ (versionados via Git LFS) e registra hashes
+# Monta os assets de um GitHub Release em $(DATA)/dist/ (publicar: gh release create <tag> $(DATA)/dist/*)
 dist:
-	mkdir -p dist
-	cp $(DATA)/parquet/majoritarios_secao.parquet dist/
-	cp $(DATA)/db/eleicoes2026_compacto.duckdb dist/
-	cp $(DATA)/manifest.json fontes_manifest.json
-	cp $(DATA)/validacao.md validacao.md
-	cd dist && sha256sum *.parquet *.duckdb > SHA256SUMS
+	DATA=$(DATA) ./run.sh dist

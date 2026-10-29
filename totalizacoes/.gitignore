@@ -1,5 +1,6 @@
 # dados brutos e intermediários: reconstruídos por `make all`
 data/
+dist/
 *.duckdb.tmp
 *.duckdb.wal
 *.parquet.tmp
