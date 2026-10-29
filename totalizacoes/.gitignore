@@ -1,0 +1,6 @@
+# dados brutos e intermediários: reconstruídos por `make all`
+data/
+*.duckdb.tmp
+*.duckdb.wal
+*.parquet.tmp
+__pycache__/
