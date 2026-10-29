@@ -1,3 +1,0 @@
-# Artefatos de dados versionados via Git LFS (só a versão compacta em totalizacoes/dist/)
-*.parquet filter=lfs diff=lfs merge=lfs -text
-*.duckdb filter=lfs diff=lfs merge=lfs -text
