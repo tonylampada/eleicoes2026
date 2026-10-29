@@ -48,6 +48,7 @@ Tempos medidos neste box (8 vCPU, 16 GB RAM, rede de datacenter), em 28/10/2026:
 | `download` (56 zips, 5,2 GB) | ~25 s (a CDN do TSE estava rápida; em banda doméstica conte minutos a horas) |
 | `build` (32,4 GB de CSV → 339 MB de Parquet) | ~10 min (SP 1º turno sozinho: ~3,5 min) |
 | `db` (bancos + compacto + validação) | ~40 s |
+| **`./run.sh all` do zero, num diretório vazio** | **10 min 53 s**, validação OK, `majoritarios_secao.parquet` byte a byte idêntico (mesmo SHA-256) |
 
 ### Como retomar
 
