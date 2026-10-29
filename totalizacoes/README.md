@@ -9,23 +9,58 @@ turno/UF + arquivos DuckDB prontos para consulta.
 > nos dois turnos (2º turno: LULA 64.256.232 = 51,79% × FLAVIO BOLSONARO 59.826.041 = 48,21%).
 > Detalhes em [`validacao.md`](validacao.md).
 
+## Atalho: baixar o banco pronto (sem reconstruir)
+
+Os bancos já montados estão publicados no GitHub Release
+[`dados-2026-10-28`](https://github.com/tonylampada/eleicoes2026/releases/tag/dados-2026-10-28). Reconstruir a partir do TSE é **opcional**.
+
+```bash
+cd totalizacoes
+python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt   # duckdb>=1.4 (para validar/consultar)
+./run.sh fetch               # completo (padrão): db/eleicoes2026.duckdb + parquet/votos_secao/  (~816 MB)
+./run.sh fetch --compacto    # só presidente/governador/senador: db/eleicoes2026_compacto.duckdb + parquet/majoritarios_secao.parquet (~154 MB)
+# equivalente: make fetch [FETCH_FLAGS=--compacto]   ·   DATA=/outro/dir ./run.sh fetch
+```
+
+- **Pré-requisito: autenticação.** O repositório é **privado**, então o download do release exige
+  `gh auth login` com uma conta que tenha acesso ao repo (o script usa `gh release download`), ou, sem
+  `gh`, a variável `GITHUB_TOKEN` (ou `GH_TOKEN`) com escopo `repo` (o script usa a API de assets com `curl -C -`).
+- O script confere o SHA-256 de cada arquivo contra o `SHA256SUMS` do release, extrai na estrutura de
+  `data/` que o resto dos scripts espera, pula o que já está íntegro (pode rodar de novo à vontade;
+  com `--method api` downloads interrompidos são retomados do byte onde pararam) e termina com uma
+  validação rápida: 69.947.081 linhas (completo) / 14.252.760 (compacto) e presidente 2º turno
+  LULA 64.256.232 × FLAVIO 59.826.041.
+- Tempo medido neste box (28/10→29/10/2026, rede de datacenter), diretório vazio: **completo ~11 s**,
+  **compacto ~9 s** (incluindo validação). Em banda doméstica, o que a sua conexão levar para 816/154 MB.
+- Manual, sem o script: `gh release download dados-2026-10-28 -R tonylampada/eleicoes2026 -D baixados && (cd baixados && sha256sum -c SHA256SUMS)`
+  e depois `tar -xf votos_secao_parquet.tar -C data/parquet/`, `mv eleicoes2026.duckdb data/db/`.
+
+| asset do release | bytes | vai para | conteúdo |
+|---|---:|---|---|
+| `eleicoes2026.duckdb` | 476.590.080 | `data/db/` | banco completo, todos os cargos |
+| `votos_secao_parquet.tar` | 339.496.960 | `data/parquet/` (extraído) | `votos_secao/turno=*/uf=*/data.parquet`, 56 partições |
+| `eleicoes2026_compacto.duckdb` | 116.666.368 | `data/db/` | compacto (cargos 1, 3, 5) + agregados |
+| `majoritarios_secao.parquet` | 37.042.582 | `data/parquet/` | compacto, um arquivo |
+| `SHA256SUMS` | 364 | — | hashes dos 4 arquivos |
+
 ## O que tem aqui
 
 | caminho | o que é | no git? |
 |---|---|---|
+| `scripts/fetch_release.py` | baixa o banco **pronto** do GitHub Release (`./run.sh fetch`) | sim |
 | `scripts/download.py` | baixa os zips `buweb` do TSE (retomável, confere SHA-512, manifesto) | sim |
 | `scripts/build_parquet.py` | CSV → Parquet tipado por turno/UF (retomável) | sim |
 | `scripts/build_db.py` | Parquet → `eleicoes2026.duckdb`, versão compacta | sim |
 | `scripts/validate.py` | confere presidente × números oficiais do TSE | sim |
 | `consultas_exemplo.sql` | consultas de exemplo (todas testadas) | sim |
 | `fontes_manifest.json` | URL, versão, bytes e SHA-512 de cada arquivo-fonte | sim |
-| `dist/majoritarios_secao.parquet` | **compacto**: presidente+governador+senador por seção | sim, **Git LFS** |
-| `dist/eleicoes2026_compacto.duckdb` | **compacto** em DuckDB, com tabelas agregadas | sim, **Git LFS** |
 | `data/raw/` | zips brutos do TSE (5,2 GB) | não (`.gitignore`) |
-| `data/parquet/votos_secao/` | Parquet completo, todos os cargos (339 MB) | não — reconstrua |
-| `data/db/eleicoes2026.duckdb` | banco completo (477 MB) | não — reconstrua |
+| `data/parquet/votos_secao/` | Parquet completo, todos os cargos (339 MB) | não — `./run.sh fetch` ou reconstrua |
+| `data/db/eleicoes2026.duckdb` | banco completo (477 MB) | não — `./run.sh fetch` ou reconstrua |
+| `data/parquet/majoritarios_secao.parquet` | **compacto**: presidente+governador+senador por seção (37 MB) | não — `./run.sh fetch --compacto` |
+| `data/db/eleicoes2026_compacto.duckdb` | **compacto** em DuckDB, com agregados (117 MB) | não — `./run.sh fetch --compacto` |
 
-## Como rodar do zero
+## Como reconstruir do zero (opcional)
 
 Requisitos: Python 3.9+, `curl`, `unzip`, ~12 GB livres em disco (5,2 GB de zips + CSV
 temporário de até 8,3 GB, um por vez; ou ~9 GB com `BUILD_FLAGS=--delete-raw`).
@@ -34,7 +69,7 @@ temporário de até 8,3 GB, um por vez; ou ~9 GB com `BUILD_FLAGS=--delete-raw`)
 cd totalizacoes
 python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
 make all          # = make download && make build && make db
-# sem make:  ./run.sh all   (ou ./run.sh download | build | db | validate | dist | sizes)
+# sem make:  ./run.sh all   (ou ./run.sh fetch | download | build | db | validate | dist | sizes)
 ```
 
 Variáveis úteis: `DATA=/outro/disco` (onde ficam os dados), `JOBS=4` (downloads paralelos),
@@ -152,7 +187,7 @@ gravados com `STORAGE_VERSION 'v1.4.0'` e abrem com DuckDB ≥ 1.4 (testado com 
 
 ## Consultas de exemplo
 
-Abra com `duckdb dist/eleicoes2026_compacto.duckdb` (ou `data/db/eleicoes2026.duckdb`) ou em Python
+Abra com `duckdb data/db/eleicoes2026.duckdb` (ou `data/db/eleicoes2026_compacto.duckdb`) ou em Python
 `duckdb.connect('...', read_only=True)`. Todas estão em [`consultas_exemplo.sql`](consultas_exemplo.sql)
 e foram executadas contra o banco completo (a 9 precisa do completo; as demais rodam nos dois).
 
@@ -255,34 +290,22 @@ CSV de SP 1º turno (8,3 GB; "unterminated quote" em linhas diferentes a cada ex
 as 17,9 milhões de linhas tenham 45 campos). O script detecta e refaz automaticamente com
 `parallel=false`.
 
-## Hospedagem dos dados no GitHub (Git LFS)
+## Hospedagem dos dados no GitHub (Release, sem Git LFS)
 
-Regras atuais do GitHub (consultadas em 28/10/2026):
+Os dados **não** ficam no git: todos os artefatos (completo e compacto) são assets do GitHub Release
+[`dados-2026-10-28`](https://github.com/tonylampada/eleicoes2026/releases/tag/dados-2026-10-28). Regras do GitHub (consultadas em 28/10/2026): releases aceitam até 1000
+assets, **cada arquivo < 2 GiB, sem limite de tamanho total nem de banda**, sem consumir cota de LFS
+([docs](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)); arquivo
+comum no git é bloqueado acima de 100 MiB.
 
-- Arquivo comum no git: aviso acima de 50 MiB, **bloqueio acima de 100 MiB**; repositório
-  idealmente < 1 GB, fortemente recomendado < 5 GB
-  ([docs](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)).
-- **Git LFS, plano Free/Pro: 10 GiB de armazenamento + 10 GiB de banda por mês grátis**; arquivo
-  máximo de 2 GB (Team 4 GB, Enterprise 5 GB). Os antigos "data packs" pré-pagos foram extintos: agora é
-  cobrança medida — US$ 0,07/GiB·mês de armazenamento e US$ 0,0875/GiB de banda além da cota. Sem
-  meio de pagamento (ou orçamento US$ 0), o excesso não é cobrado: o LFS fica bloqueado até o mês
-  seguinte. Downloads/clones de qualquer pessoa contam na banda do **dono** do repositório
-  ([billing](https://docs.github.com/en/billing/concepts/product-billing/git-lfs),
-  [limites](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage),
-  [calculadora](https://github.com/pricing/calculator)).
-- **Releases**: até 1000 assets por release, **cada arquivo < 2 GiB, sem limite de tamanho total nem de
-  banda** e sem consumir cota de LFS
-  ([docs](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)).
-- Plano Free: repositórios privados ilimitados ([pricing](https://github.com/pricing)).
+Até 29/10/2026 a versão compacta ficava em `dist/` via Git LFS; ela foi removida do git (sem
+reescrever o histórico) e o repo **não depende mais de git-lfs** — um `git clone` normal funciona. Os
+commits antigos ainda apontam para objetos LFS (que continuam no armazenamento LFS do GitHub); só
+quem fizer checkout desses commits antigos precisará de git-lfs.
 
-O que está versionado: só a **versão compacta** em `dist/` via LFS (`.gitattributes` na raiz:
-`*.parquet` e `*.duckdb`), ~154 MB — 1,5% da cota grátis de armazenamento; cada clone completo
-gasta ~154 MB de banda (≈ 65 clones/mês na cota grátis). Para clonar só os scripts:
-`GIT_LFS_SKIP_SMUDGE=1 git clone ...` e depois `git lfs pull --include "totalizacoes/dist/*.parquet"`.
-
-Para os dados completos (Parquet 339 MB e DuckDB 477 MB) a recomendação é **GitHub Release**
-(grátis, cada arquivo bem abaixo de 2 GiB, banda sem cota) — ou simplesmente reconstruir com
-`make all` (~11 min).
+Para publicar um release novo depois de reconstruir: `./run.sh dist` (gera `data/dist/` com os 4
+assets + `SHA256SUMS`) e `gh release create <tag> data/dist/*`; depois ajuste `TAG` em
+`scripts/fetch_release.py`.
 
 ## Tabela de arquivos-fonte (SHA-512 conferido contra o `.sha512` do TSE)
 
@@ -349,4 +372,4 @@ Para os dados completos (Parquet 339 MB e DuckDB 477 MB) a recomendação é **G
 
 </details>
 
-Hashes SHA-256 dos artefatos versionados: [`dist/SHA256SUMS`](dist/SHA256SUMS).
+Hashes SHA-256 dos artefatos publicados: asset `SHA256SUMS` do [release](https://github.com/tonylampada/eleicoes2026/releases/tag/dados-2026-10-28).
