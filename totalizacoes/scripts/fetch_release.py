@@ -12,9 +12,12 @@ Modos (mesma estrutura de pastas que `./run.sh all` produziria):
       <data>/parquet/majoritarios_secao.parquet                        (37 MB)
   Os dois juntos: --completo --compacto.
 
-- Download: `gh release download` se o `gh` estiver instalado e logado; senão API do GitHub com
-  `curl -C -` (retomável) usando GITHUB_TOKEN/GH_TOKEN. Forçar um modo: --method gh|api.
-  O repositório é PRIVADO: é preciso `gh auth login` (conta com acesso) ou um token com escopo `repo`.
+- Download (o repo é PÚBLICO: não precisa de login):
+    gh   — `gh release download`, se o `gh` estiver instalado e logado;
+    api  — API de assets do GitHub com GITHUB_TOKEN/GH_TOKEN + `curl -C -` (retomável);
+    url  — anônimo, URL direta https://github.com/<repo>/releases/download/<tag>/<asset> + `curl -C -`
+           (retomável). É o padrão quando não há gh logado nem token.
+  Forçar um modo: --method gh|api|url (ou FETCH_METHOD=...). Se o gh falhar, cai para `url`.
 - Confere SHA-256 de cada asset contra o SHA256SUMS do release. Arquivo corrompido é baixado de novo.
 - Idempotente: o que já está íntegro no destino é pulado. Rode de novo se algo for interrompido.
 - No fim faz uma validação rápida (linhas e presidente 2º turno) se o módulo `duckdb` existir.
@@ -58,7 +61,7 @@ def token():
         r = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
         t = r.stdout.strip() if r.returncode == 0 else None
     if not t:
-        sys.exit("ERRO: repo privado — rode `gh auth login` ou exporte GITHUB_TOKEN (escopo `repo`).")
+        sys.exit("ERRO: --method api precisa de GITHUB_TOKEN/GH_TOKEN (ou use --method url, anônimo)")
     return t
 
 
@@ -70,7 +73,7 @@ def api_assets(repo, tag):
         with urllib.request.urlopen(req, timeout=60) as r:
             rel = json.load(r)
     except urllib.error.HTTPError as e:
-        sys.exit(f"ERRO {e.code} ao ler o release {repo}@{tag} (token sem acesso ao repo privado?)")
+        sys.exit(f"ERRO {e.code} ao ler o release {repo}@{tag} (token inválido? tente --method url)")
     return {a["name"]: a for a in rel["assets"]}
 
 
@@ -79,22 +82,35 @@ def download(name, dest_dir, args, assets_cache):
     dest = os.path.join(dest_dir, name)
     if args.method == "gh":
         # --skip-existing: não rebaixa o que já está lá (o hash é conferido depois)
-        subprocess.run(["gh", "release", "download", args.tag, "-R", args.repo, "-p", name,
-                        "-D", dest_dir, "--skip-existing"], check=True)
-        return dest
+        r = subprocess.run(["gh", "release", "download", args.tag, "-R", args.repo, "-p", name,
+                            "-D", dest_dir, "--skip-existing"])
+        if r.returncode == 0:
+            return dest
+        log(f"gh falhou para {name}; tentando download anônimo por URL direta")
+        return curl_resume(f"https://github.com/{args.repo}/releases/download/{args.tag}/{name}", dest, None, [])
+    if args.method == "url":
+        return curl_resume(f"https://github.com/{args.repo}/releases/download/{args.tag}/{name}", dest, None, [])
     if "a" not in assets_cache:
         assets_cache["a"] = api_assets(args.repo, args.tag)
     a = assets_cache["a"].get(name) or sys.exit(f"ERRO: asset {name} não existe no release {args.tag}")
+    return curl_resume(a["url"], dest, a["size"],
+                       ["-H", f"Authorization: Bearer {token()}", "-H", "Accept: application/octet-stream"])
+
+
+def curl_resume(url, dest, size, headers):
+    """Baixa para <dest>.part com `curl -C -` (retoma do byte onde parou) e renomeia no fim."""
     part = dest + ".part"
     if os.path.exists(dest):
-        os.replace(dest, part)  # retoma/confere a partir do que existe
-    if os.path.exists(part) and os.path.getsize(part) > a["size"]:
+        os.replace(dest, part)  # o hash é conferido depois; se estiver errado, é apagado e rebaixado
+    if size is not None and os.path.exists(part) and os.path.getsize(part) > size:
         os.remove(part)
-    if not (os.path.exists(part) and os.path.getsize(part) == a["size"]):
-        # API de assets: redireciona para URL assinada; -C - retoma downloads interrompidos (HTTP Range)
-        subprocess.run(["curl", "-fL", "--retry", "5", "--retry-delay", "3", "-C", "-", "-o", part,
-                        "-H", f"Authorization: Bearer {token()}", "-H", "Accept: application/octet-stream",
-                        a["url"]], check=True)
+    if not (size is not None and os.path.exists(part) and os.path.getsize(part) == size):
+        r = subprocess.run(["curl", "-fL", "--retry", "5", "--retry-delay", "3", "-C", "-", "-o", part,
+                            *headers, url])
+        # 416 = Range além do fim: o .part já está completo
+        partial = os.path.exists(part) and os.path.getsize(part) > 0
+        if r.returncode != 0 and not (r.returncode in (22, 33) and partial):
+            sys.exit(f"ERRO: curl falhou ({r.returncode}) em {url}")
     os.replace(part, dest)
     return dest
 
@@ -171,7 +187,7 @@ def main():
     ap.add_argument("--tag", default=os.environ.get("RELEASE_TAG", TAG))
     ap.add_argument("--completo", action="store_true", help="banco completo, todos os cargos (padrão)")
     ap.add_argument("--compacto", action="store_true", help="só presidente/governador/senador (~154 MB)")
-    ap.add_argument("--method", choices=["auto", "gh", "api"], default=os.environ.get("FETCH_METHOD", "auto"))
+    ap.add_argument("--method", choices=["auto", "gh", "api", "url"], default=os.environ.get("FETCH_METHOD", "auto"))
     ap.add_argument("--keep", action="store_true", help="manter o .tar em <data>/release/ depois de extrair")
     ap.add_argument("--force", action="store_true", help="substituir votos_secao/ existente que não veio do release")
     ap.add_argument("--no-validate", action="store_true")
@@ -179,9 +195,14 @@ def main():
     if not (args.completo or args.compacto):
         args.completo = True
     if args.method == "auto":
-        args.method = "gh" if have_gh() else "api"
-    if args.method == "api" and not shutil.which("curl"):
-        sys.exit("ERRO: precisa de `gh` (logado) ou `curl`")
+        if have_gh():
+            args.method = "gh"
+        elif os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN"):
+            args.method = "api"
+        else:
+            args.method = "url"
+    if args.method != "gh" and not shutil.which("curl"):
+        sys.exit("ERRO: precisa de `curl` (ou do `gh` logado)")
     t_inicio = time.time()
     data = os.path.abspath(args.data)
     dl = os.path.join(data, "release", args.tag)

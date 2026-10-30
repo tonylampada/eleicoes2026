@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Equivalente ao Makefile para quem não tem `make`.
 # Uso: ./run.sh {fetch|deps|download|build|db|validate|dist|sizes|all}
-#   fetch = baixa o banco PRONTO do GitHub Release (não precisa reconstruir; exige gh auth / GITHUB_TOKEN)
+#   fetch = baixa o banco PRONTO do GitHub Release (não precisa reconstruir nem de login)
 set -euo pipefail
 cd "$(dirname "$0")"
 PY=${PY:-python3}; DATA=${DATA:-data}; JOBS=${JOBS:-4}; MEM=${MEM:-3GB}; THREADS=${THREADS:-6}

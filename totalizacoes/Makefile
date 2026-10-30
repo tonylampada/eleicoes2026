@@ -1,5 +1,5 @@
 # Totalizações Eleições 2026 (TSE, boletim de urna por seção) -> Parquet + DuckDB
-# make fetch     baixa o banco PRONTO do GitHub Release (sem reconstruir; exige gh auth)
+# make fetch     baixa o banco PRONTO do GitHub Release (sem reconstruir, sem login)
 # make download   baixa/retoma os zips buweb e confere SHA-512
 # make build      converte UF por UF para Parquet (retomável)
 # make db         monta eleicoes2026.duckdb, a versão compacta e valida

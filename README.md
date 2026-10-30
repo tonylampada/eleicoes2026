@@ -3,7 +3,7 @@
 Votos por seção eleitoral de **todos os cargos** das Eleições 2026 (1º e 2º turno), a partir dos boletins de
 urna do TSE, em Parquet + DuckDB, com scripts reproduzíveis e retomáveis.
 
-**Usar os dados sem reconstruir** (repo privado: precisa de `gh auth login` ou `GITHUB_TOKEN`):
+**Usar os dados sem reconstruir** (sem login, só `python3` + `curl`):
 
 ```bash
 cd totalizacoes && ./run.sh fetch            # banco completo (~816 MB) do GitHub Release
@@ -15,3 +15,24 @@ Os dados ficam no Release [`dados-2026-10-28`](https://github.com/tonylampada/el
 
 - [`AGENTS.md`](AGENTS.md) — guia curto para agentes de código: atalhos, esquema, exemplos, fuso dos horários, armadilhas.
 - [`totalizacoes/README.md`](totalizacoes/README.md) — documentação completa: fontes, validação, tamanhos, consultas.
+- [`micro-analises/`](micro-analises/) — análises prontas (ex.: transferência de votos 1º→2º turno).
+
+## Como usar com um agente de IA
+
+Cole isto no seu agente de código (Cursor, Claude Code, Codex…), trocando o final:
+
+```text
+Clone https://github.com/tonylampada/eleicoes2026 e leia o AGENTS.md na raiz. Baixe o banco pronto
+com `cd totalizacoes && ./run.sh fetch` (não reconstrua a partir do TSE). Depois <reproduza a análise
+micro-analises/transferencia-de-votos | crie uma micro-análise nova sobre: X>, seguindo a convenção de
+micro-analises/ (gerar_dados.py → dados.json → index.html + README.md), validando os totais contra o
+oficial, e me mostre o resultado.
+```
+
+Convenção para novas análises: `micro-analises/<nome>/` com `gerar_dados.py` (lê o DuckDB em modo
+somente leitura, aceita `--db`, valida contra o oficial e falha se não bater) → `dados.json` (agregado
+pequeno, < 3–5 MB, pode ser commitado) → `index.html` (página única, JS puro, lê `dados.json`) + `README.md`
+(o que mostra, metodologia). Publicar a página (here.now, GitHub Pages…) é opcional e fica fora do git:
+nunca commite chaves nem arquivos de estado (`.herenow-*`, `.env`). Detalhes em
+[`micro-analises/README.md`](micro-analises/README.md).
+

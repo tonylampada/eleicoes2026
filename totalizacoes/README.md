@@ -22,17 +22,18 @@ python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
 # equivalente: make fetch [FETCH_FLAGS=--compacto]   ·   DATA=/outro/dir ./run.sh fetch
 ```
 
-- **Pré-requisito: autenticação.** O repositório é **privado**, então o download do release exige
-  `gh auth login` com uma conta que tenha acesso ao repo (o script usa `gh release download`), ou, sem
-  `gh`, a variável `GITHUB_TOKEN` (ou `GH_TOKEN`) com escopo `repo` (o script usa a API de assets com `curl -C -`).
+- **Sem login.** O repositório é público: sem `gh` logado e sem token, o script baixa anônimo pela URL direta
+  `https://github.com/tonylampada/eleicoes2026/releases/download/dados-2026-10-28/<asset>` com `curl -C -`
+  (retomável). Com `gh` logado usa `gh release download`; com `GITHUB_TOKEN`, a API de assets. Forçar:
+  `--method url|gh|api`.
 - O script confere o SHA-256 de cada arquivo contra o `SHA256SUMS` do release, extrai na estrutura de
   `data/` que o resto dos scripts espera, pula o que já está íntegro (pode rodar de novo à vontade;
-  com `--method api` downloads interrompidos são retomados do byte onde pararam) e termina com uma
+  nos modos `url`/`api` downloads interrompidos são retomados do byte onde pararam) e termina com uma
   validação rápida: 69.947.081 linhas (completo) / 14.252.760 (compacto) e presidente 2º turno
   LULA 64.256.232 × FLAVIO 59.826.041.
 - Tempo medido neste box (28/10→29/10/2026, rede de datacenter), diretório vazio: **completo ~11 s**,
   **compacto ~9 s** (incluindo validação). Em banda doméstica, o que a sua conexão levar para 816/154 MB.
-- Manual, sem o script: `gh release download dados-2026-10-28 -R tonylampada/eleicoes2026 -D baixados && (cd baixados && sha256sum -c SHA256SUMS)`
+- Manual, sem o script: `for a in SHA256SUMS eleicoes2026.duckdb votos_secao_parquet.tar; do curl -fLO -C - https://github.com/tonylampada/eleicoes2026/releases/download/dados-2026-10-28/$a; done && sha256sum -c --ignore-missing SHA256SUMS`
   e depois `tar -xf votos_secao_parquet.tar -C data/parquet/`, `mv eleicoes2026.duckdb data/db/`.
 
 | asset do release | bytes | vai para | conteúdo |

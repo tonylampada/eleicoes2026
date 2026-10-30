@@ -2,8 +2,9 @@
 
 **O que é:** votos de **todos os cargos, por seção eleitoral**, das Eleições 2026 (1º turno 04/10, 2º turno
 25/10), a partir dos boletins de urna (arquivos `buweb`) do TSE, em Parquet + DuckDB. Presidente bate
-exatamente com o oficial (2º turno: LULA 64.256.232 × FLAVIO BOLSONARO 59.826.041). Tudo fica em
-[`totalizacoes/`](totalizacoes/) — detalhes em [`totalizacoes/README.md`](totalizacoes/README.md).
+exatamente com o oficial (2º turno: LULA 64.256.232 × FLAVIO BOLSONARO 59.826.041). Dados e scripts em
+[`totalizacoes/`](totalizacoes/) (detalhes em [`totalizacoes/README.md`](totalizacoes/README.md)); análises prontas em
+[`micro-analises/`](micro-analises/).
 
 ## ATALHO: usar os dados sem reconstruir
 
@@ -14,14 +15,33 @@ python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
 ./run.sh fetch --compacto   # leve: só presidente/governador/senador (~154 MB)
 ```
 
-- **Pré-requisito:** o repo é **privado** → `gh auth login` (conta com acesso) **ou** `GITHUB_TOKEN`/`GH_TOKEN`
-  com escopo `repo`. Sem isso o download dá 404.
+- **Sem login:** o repo é público. O script usa `gh` se estiver logado; senão baixa anônimo pela URL direta
+  `https://github.com/tonylampada/eleicoes2026/releases/download/dados-2026-10-28/<asset>` com `curl -C -`.
 - Baixa os assets do Release [`dados-2026-10-28`](https://github.com/tonylampada/eleicoes2026/releases/tag/dados-2026-10-28),
   confere SHA-256, extrai em `totalizacoes/data/`, é idempotente (rode de novo se cair) e valida no final.
 - Resultado:
   - completo: `data/db/eleicoes2026.duckdb` (477 MB) e `data/parquet/votos_secao/turno=<1|2>/uf=<UF>/data.parquet` (339 MB, 69.947.081 linhas)
   - `--compacto`: `data/db/eleicoes2026_compacto.duckdb` (117 MB) e `data/parquet/majoritarios_secao.parquet` (37 MB, 14.252.760 linhas)
 - **Não há mais Git LFS**: os dados não estão no git, só no Release. `git clone` normal basta.
+
+## Como usar com um agente de IA
+
+Cole isto no seu agente de código (Cursor, Claude Code, Codex…), trocando o final:
+
+```text
+Clone https://github.com/tonylampada/eleicoes2026 e leia o AGENTS.md na raiz. Baixe o banco pronto
+com `cd totalizacoes && ./run.sh fetch` (não reconstrua a partir do TSE). Depois <reproduza a análise
+micro-analises/transferencia-de-votos | crie uma micro-análise nova sobre: X>, seguindo a convenção de
+micro-analises/ (gerar_dados.py → dados.json → index.html + README.md), validando os totais contra o
+oficial, e me mostre o resultado.
+```
+
+Convenção para novas análises: `micro-analises/<nome>/` com `gerar_dados.py` (lê o DuckDB em modo
+somente leitura, aceita `--db`, valida contra o oficial e falha se não bater) → `dados.json` (agregado
+pequeno, < 3–5 MB, pode ser commitado) → `index.html` (página única, JS puro, lê `dados.json`) + `README.md`
+(o que mostra, metodologia). Publicar a página (here.now, GitHub Pages…) é opcional e fica fora do git:
+nunca commite chaves nem arquivos de estado (`.herenow-*`, `.env`). Detalhes em
+[`micro-analises/README.md`](micro-analises/README.md).
 
 ## Reconstruir do zero (opcional)
 
