@@ -212,13 +212,14 @@ SELECT sg_uf, nm_municipio,
 FROM totais_municipio WHERE nr_turno = 2 AND cd_cargo = 1
 GROUP BY ALL ORDER BY total DESC LIMIT 10;
 
--- 4. Seções com maior virada a favor de Lula entre 1º e 2º turno
+-- 4. Seções com maior variação da margem (Lula − Flávio) entre 1º e 2º turno
 SELECT sg_uf, nm_municipio, nr_zona, nr_secao,
        lula_1t, flavio_1t, outros_1t, lula_2t, flavio_2t, delta_margem_lula
 FROM presidente_1t_2t_secao WHERE tem_1t AND tem_2t
-ORDER BY delta_margem_lula DESC LIMIT 10;   -- ASC para as maiores viradas pró-Flávio
+ORDER BY delta_margem_lula DESC LIMIT 10;   -- ASC: maiores variações no sentido de Flávio
 
--- 5. Votos de terceiros no 1º turno × ganho de cada lado no 2º, por seção
+-- 5. Correlação, entre seções, de votos de outros candidatos no 1º turno com o ganho de cada candidato
+--    no 2º (descritiva: não indica como cada eleitor votou)
 SELECT round(corr(outros_1t, lula_2t - lula_1t), 3)     AS corr_outros_ganho_lula,
        round(corr(outros_1t, flavio_2t - flavio_1t), 3) AS corr_outros_ganho_flavio,
        sum(lula_2t - lula_1t) AS ganho_lula, sum(flavio_2t - flavio_1t) AS ganho_flavio,
@@ -279,14 +280,15 @@ WHERE uf = 'RJ' GROUP BY ALL ORDER BY ALL;
 - **Bate exatamente nos dois turnos**: votos de cada candidato (todos os 12 do 1º turno), brancos,
   nulos e comparecimento.
 - Diferenças conhecidas: (a) no 1º turno os BUs têm 5.246 votos para o nº 28 (LEONARDO AVALANCHE),
-  que não figura entre os 12 candidatos do painel oficial — sem eles os válidos batem
-  (119.300.788); (b) há 499.206 BUs (1t) / 499.205 (2t) contra 499.248 seções do painel —
+  que não figura entre os 12 candidatos do painel oficial (motivo não consta destes dados) — sem eles
+  os válidos batem (119.300.788); (b) há 499.206 BUs (1t) / 499.205 (2t) contra 499.248 seções do painel —
   seções não instaladas/agregadas não têm BU próprio; (c) aptos no 2º turno: −525 (423 são eleitores
-  de seções não instaladas, informados pelo painel; 102 não explicados).
+  de seções não instaladas, informados pelo painel; 102 sem explicação identificada nesta checagem —
+  possivelmente ajustes administrativos, não verificado).
 - Durante o build, cada partição confere nº de linhas do CSV (contagem independente de `\n`) =
   nº de linhas do Parquet.
 
-Cuidado encontrado: o leitor de CSV **paralelo** do DuckDB 2.0 falhou de forma não determinística no
+Observação técnica: o leitor de CSV **paralelo** do DuckDB 2.0 falhou de forma não determinística no
 CSV de SP 1º turno (8,3 GB; "unterminated quote" em linhas diferentes a cada execução, embora todas
 as 17,9 milhões de linhas tenham 45 campos). O script detecta e refaz automaticamente com
 `parallel=false`.

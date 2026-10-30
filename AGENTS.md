@@ -4,7 +4,8 @@
 25/10), a partir dos boletins de urna (arquivos `buweb`) do TSE, em Parquet + DuckDB. Presidente bate
 exatamente com o oficial (2º turno: LULA 64.256.232 × FLAVIO BOLSONARO 59.826.041). Dados e scripts em
 [`totalizacoes/`](totalizacoes/) (detalhes em [`totalizacoes/README.md`](totalizacoes/README.md)); análises prontas em
-[`micro-analises/`](micro-analises/).
+[`micro-analises/`](micro-analises/). Tudo é estatística descritiva sobre dados públicos; não substitui o
+resultado oficial (ver "Escopo e limites" no [`README.md`](README.md)).
 
 ## ATALHO: usar os dados sem reconstruir
 
@@ -33,13 +34,14 @@ Clone https://github.com/tonylampada/eleicoes2026 e leia o AGENTS.md na raiz. Ba
 com `cd totalizacoes && ./run.sh fetch` (não reconstrua a partir do TSE). Depois <reproduza a análise
 micro-analises/transferencia-de-votos | crie uma micro-análise nova sobre: X>, seguindo a convenção de
 micro-analises/ (gerar_dados.py → dados.json → index.html + README.md), validando os totais contra o
-oficial, e me mostre o resultado.
+oficial e descrevendo só o que os dados mostram, e me mostre o resultado.
 ```
 
 Convenção para novas análises: `micro-analises/<nome>/` com `gerar_dados.py` (lê o DuckDB em modo
 somente leitura, aceita `--db`, valida contra o oficial e falha se não bater) → `dados.json` (agregado
 pequeno, < 3–5 MB, pode ser commitado) → `index.html` (página única, JS puro, lê `dados.json`) + `README.md`
-(o que mostra, metodologia). Publicar a página (here.now, GitHub Pages…) é opcional e fica fora do git:
+(o que mostra, metodologia, limites). Texto em tom descritivo: afirmar só o que os dados mostram, sem
+atribuir causa ou intenção. Publicar a página (here.now, GitHub Pages…) é opcional e fica fora do git:
 nunca commite chaves nem arquivos de estado (`.herenow-*`, `.env`). Detalhes em
 [`micro-analises/README.md`](micro-analises/README.md).
 
@@ -86,7 +88,7 @@ GROUP BY sg_uf ORDER BY sg_uf;
 PIVOT (SELECT sg_uf, hour(dt_encerramento) AS hora FROM secoes WHERE nr_turno = 2 AND cd_cargo = 1)
 ON hora USING count(*) ORDER BY sg_uf;
 -- AC: 2.269 seções às 15h; AM: 7.600 às 16h; SP: 101.894 às 17h, 1.571 às 19h
--- (27 seções do exterior têm dt_encerramento NULL e somem do PIVOT)
+-- (27 seções do exterior têm dt_encerramento NULL — motivo não informado nos dados — e somem do PIVOT)
 ```
 
 ### Fuso dos horários (`dt_abertura`, `dt_encerramento`, `dt_emissao_bu`, `dt_bu_recebido`)
@@ -102,17 +104,18 @@ O `_leiame-boletimurnaweb.pdf` (dentro de cada zip do TSE) **não diz o fuso** d
   inclusive AC (cujas urnas fecham 15h local), e no exterior 46% dos BUs aparecem "recebidos" antes da emissão.
 - É inferência a partir dos dados, não documentação oficial — trate como provável, não garantido.
 
-## Armadilhas conhecidas
+## Particularidades técnicas conhecidas
 
 - **DuckDB ≥ 1.4** para abrir os `.duckdb` (gravados com `STORAGE_VERSION 'v1.4.0'`; testado 1.5.6 e 2.0.0).
 - O leitor de CSV **paralelo** do DuckDB falha de forma intermitente no CSV de SP 1º turno (8,3 GB,
   "unterminated quote"); `build_parquet.py` detecta e refaz com `parallel=false` (SP leva ~3,5 min).
 - **Candidato nº 28** (LEONARDO AVALANCHE) tem 5.246 votos nominais no 1º turno no BU, mas não está no painel
-  oficial; os "válidos" oficiais excluem esses votos. Filtre se for comparar com o oficial.
+  oficial; os "válidos" oficiais excluem esses votos (motivo não consta destes dados). Filtre se for comparar com o oficial.
 - **RR 2º turno**: no CKAN o recurso do zip aparece duplicado como `.sha512`; o `download.py` deriva a URL do zip.
 - `package_show` do CKAN às vezes devolve só o 1º turno (cache); o script une com `package_search`.
 - Contagem de seções difere do painel (−42/−43): o BU traz uma linha por boletim apurado; seções agregadas em
-  `ds_secoes_agregadas`.
+  `ds_secoes_agregadas`. Aptos no 2º turno: −525 (423 em seções não instaladas; 102 sem explicação identificada).
+- Textos de análise: tom descritivo; correlação/decomposição agregada não indica causa nem voto individual.
 - Senado 2026: 2 vagas — cada eleitor dá 2 votos para senador.
 - **Git LFS**: não é mais usado. Commits antigos (antes de 29/10/2026) ainda têm `totalizacoes/dist/*` como
   ponteiros LFS; só quem fizer checkout deles precisa de git-lfs. Não commite dados (`data/` está no `.gitignore`).

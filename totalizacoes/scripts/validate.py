@@ -28,13 +28,15 @@ NOTAS = """
 
 - **válidos (1º turno, +5.246)**: o BU traz votos nominais para o nº 28 (LEONARDO AVALANCHE), que não
   aparece entre os 12 candidatos do painel oficial; esses 5.246 votos não entram nos válidos oficiais
-  (provável candidatura indeferida/anulada — votos computados como nulos/anulados na totalização).
+  (o motivo não consta destes dados; uma explicação possível, não verificada aqui, é registro de candidatura
+  indeferido ou cancelado, com votos tratados como nulos na totalização).
   Sem eles, os válidos batem exatamente: 119.306.034 − 5.246 = 119.300.788.
 - **seções (−42/−43)**: os arquivos buweb trazem uma linha por boletim de urna efetivamente apurado;
   o painel conta 499.248 seções, incluindo seções não instaladas e/ou agregadas (16.142 BUs agregam
   outras seções — ver coluna ds_secoes_agregadas).
 - **aptos (2º turno, −525)**: o painel informa 423 eleitores em seções não instaladas (sem BU);
-  restam 102 eleitores de diferença não explicados por esta checagem.
+  restam 102 eleitores de diferença sem explicação identificada nesta checagem (possivelmente ajustes
+  administrativos de cadastro; não verificado). Para conferência, use as fontes oficiais do TSE.
 """
 data = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), "..", "data"))
 pq = os.path.join(data, "parquet", "votos_secao", "*", "*", "data.parquet")

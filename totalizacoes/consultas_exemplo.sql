@@ -17,14 +17,14 @@ SELECT sg_uf, nm_municipio,
 FROM totais_municipio WHERE nr_turno = 2 AND cd_cargo = 1
 GROUP BY ALL ORDER BY total DESC LIMIT 10;
 
--- 4. Seções com maior virada a favor de Lula entre 1º e 2º turno (margem Lula−Flávio)
+-- 4. Seções com maior variação da margem (Lula − Flávio) entre 1º e 2º turno
 SELECT sg_uf, nm_municipio, nr_zona, nr_secao,
        lula_1t, flavio_1t, outros_1t, lula_2t, flavio_2t, delta_margem_lula
 FROM presidente_1t_2t_secao WHERE tem_1t AND tem_2t
 ORDER BY delta_margem_lula DESC LIMIT 10;
 
--- 5. Para onde foram os votos de "outros" candidatos? Correlação por seção entre
---    votos de terceiros no 1º turno e ganho líquido de cada lado no 2º
+-- 5. Correlação, entre seções, de votos de outros candidatos no 1º turno com o ganho de cada candidato
+--    no 2º (descritiva: não indica como cada eleitor votou)
 SELECT round(corr(outros_1t, lula_2t - lula_1t), 3)     AS corr_outros_ganho_lula,
        round(corr(outros_1t, flavio_2t - flavio_1t), 3) AS corr_outros_ganho_flavio,
        sum(lula_2t - lula_1t)     AS ganho_lula,
