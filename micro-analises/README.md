@@ -19,6 +19,9 @@ Convenções:
   agregado por (município, hora) com medidas *somáveis*; o navegador soma as linhas que passam no filtro.
 - O JSON deve ficar pequeno (alvo < 3–5 MB).
 - O script valida os totais contra o resultado oficial e falha (exit ≠ 0) se algo não bater.
+- Texto (README e página) em tom descritivo: afirmar só o que os dados mostram, deixar claro que é
+  estatística descritiva sobre dados públicos (agregados não indicam causa nem voto individual) e indicar
+  as fontes oficiais do TSE para conferência.
 
 Como rodar (exemplo):
 
@@ -31,4 +34,4 @@ python -m http.server 8000            # abra http://localhost:8000 (fetch de arq
 
 Análises:
 
-- [`transferencia-de-votos/`](transferencia-de-votos/) — de onde vieram os votos ganhos por 13 e 22 entre o 1º e o 2º turno.
+- [`transferencia-de-votos/`](transferencia-de-votos/) — decomposição aritmética da variação de votos de 13 e 22 entre o 1º e o 2º turno.

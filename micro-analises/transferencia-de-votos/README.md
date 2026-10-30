@@ -1,4 +1,4 @@
-# Transferência de votos 1º → 2º turno (Presidente 2026)
+# Variação de votos entre o 1º e o 2º turno (Presidente 2026) — decomposição aritmética
 
 Sankey que decompõe o ganho de votos de **13 (Lula)** e **22 (Flávio Bolsonaro)** entre os turnos, com filtros de UF,
 município e hora de fechamento da urna.
@@ -15,8 +15,9 @@ ganho13 + ganho22 = Δcomparecimento − Δbrancos − Δnulos + votos_1t_dos_el
 
 Termos positivos viram fontes (esquerda), negativos viram destinos (direita: "queda do comparecimento",
 "aumento de brancos", "perda do candidato X"), então bruto (Σ fontes) = líquido (Σ destinos) sempre.
-É atribuição aritmética agregada: **não** diz como cada eleitor votou (falácia/inferência ecológica).
-"Sem classificação" não existe no banco (só nominal/branco/nulo); o nº 28 (votos nominais no BU, nulos no oficial)
+É decomposição aritmética agregada sobre dados públicos do TSE: **não** diz como cada eleitor votou nem
+indica causas (falácia/inferência ecológica).
+"Sem classificação" não existe no banco (só nominal/branco/nulo); o nº 28 (votos nominais no BU, fora dos válidos no oficial; motivo não consta destes dados)
 entra entre os eliminados com asterisco.
 
 **Hora de fechamento**: `hour(dt_encerramento)` do BU do **2º turno**, em hora local da urna. A página também oferece

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Transferência de votos 1º → 2º turno · Presidente 2026</title>
+<title>Variação de votos 1º → 2º turno · Presidente 2026</title>
 <style>
 :root{--bg:#f7f6fb;--card:#fff;--ink:#23212b;--mut:#6b6878;--line:#e6e3ee;--roxo:#7b4fc9;--rosa:#c8506e;--azul:#4f7fae;--r:14px}
 *{box-sizing:border-box}
@@ -72,7 +72,7 @@ footer{max-width:1280px;margin:auto;padding:0 24px 30px;color:var(--mut);font-si
 </head>
 <body>
 <header>
-  <h1>De onde vieram os votos do 2º turno?</h1>
+  <h1>Variação de votos entre o 1º e o 2º turno</h1>
   <p class="sub">Presidente 2026 · decomposição aritmética do ganho de <b style="color:var(--rosa)">13 · Lula</b> e <b style="color:var(--azul)">22 · Flávio Bolsonaro</b> entre o 1º turno (4/out) e o 2º turno (25/out), somando seções eleitorais comparáveis. <a href="#leia">Como ler / limitações ↓</a></p>
 </header>
 <main>
@@ -109,7 +109,7 @@ footer{max-width:1280px;margin:auto;padding:0 24px 30px;color:var(--mut);font-si
       <div class="muted" id="extra1" style="margin-top:4px"></div>
     </div>
     <div>
-      <div class="bt"><b>Resultado da transferência</b><span>como o ganho líquido do 1º → 2º turno se dividiu entre 13 e 22</span></div>
+      <div class="bt"><b>Divisão do ganho líquido</b><span>como o ganho líquido do 1º → 2º turno se dividiu entre 13 e 22</span></div>
       <div class="barra" id="barra2"></div>
       <div class="leg" id="leg2"></div>
       <div id="aviso2"></div>
@@ -117,7 +117,7 @@ footer{max-width:1280px;margin:auto;padding:0 24px 30px;color:var(--mut);font-si
   </section>
 
   <section class="card">
-    <h2>Fluxo: fontes → ganho de cada finalista</h2>
+    <h2>Decomposição: fontes → ganho de cada candidato</h2>
     <div id="sankeyBox"><svg id="sankey" role="img" aria-label="Diagrama de Sankey"></svg></div>
     <p class="muted" id="notaSankey"></p>
   </section>
@@ -129,15 +129,15 @@ footer{max-width:1280px;margin:auto;padding:0 24px 30px;color:var(--mut);font-si
 
   <section class="card leia" id="leia">
     <h2>Como ler / limitações</h2>
-    <p><b>A ideia.</b> Pegamos as mesmas seções eleitorais (as mesmas urnas) nos dois turnos e somamos. Entre um turno e outro, Lula e Flávio ganharam votos. Esses votos “a mais” tiveram que vir de algum lugar, porque em cada urna vale sempre a regra:</p>
+    <p><b>A ideia.</b> Pegamos as mesmas seções eleitorais (as mesmas urnas) nos dois turnos e somamos. Entre um turno e outro, Lula e Flávio ganharam votos. Essa diferença pode ser decomposta porque em cada urna vale a identidade:</p>
     <div class="formula">comparecimento = votos nos candidatos + brancos + nulos</div>
-    <p>Comparando 1º e 2º turno, essa regra vira uma conta de “de onde veio e para onde foi”:</p>
+    <p>Comparando 1º e 2º turno, essa identidade vira uma decomposição da variação:</p>
     <div class="formula">ganho do 13 + ganho do 22 = (mais gente votando) + (menos brancos) + (menos nulos) + (votos que, no 1º turno, foram para os candidatos eliminados)</div>
     <ul>
       <li><b>Ganho do candidato</b> = votos no 2º turno − votos no 1º turno, nas mesmas seções.</li>
       <li><b>Aumento líquido do comparecimento</b> = comparecimento do 2º turno − do 1º. “Líquido” porque é saldo: alguém que votou só no 1º e alguém que votou só no 2º se cancelam.</li>
       <li><b>Redução de brancos / de nulos</b> = brancos (ou nulos) do 1º turno − do 2º.</li>
-      <li><b>Votos dos demais candidatos</b> = tudo o que os 11 candidatos eliminados (e o nº 28, veja abaixo) tiveram no 1º turno. No 2º turno eles não existem, então esses votos obrigatoriamente “se redistribuíram”.</li>
+      <li><b>Votos dos demais candidatos</b> = tudo o que os 11 candidatos eliminados (e o nº 28, veja abaixo) tiveram no 1º turno. No 2º turno eles não estão na urna, então esses votos não têm correspondente direto no 2º turno.</li>
       <li>Se algum termo der <b>negativo</b> no recorte escolhido (por exemplo, o comparecimento caiu, ou os brancos aumentaram, ou um candidato perdeu votos), ele aparece do <b>outro lado</b> do diagrama: “Queda do comparecimento”, “Aumento de brancos”, “Perda do candidato…”. Assim todas as faixas são positivas e o diagrama sempre fecha: <b>bruto</b> (soma das fontes, à esquerda) = <b>líquido</b> (soma dos destinos, à direita).</li>
       <li>Na coluna da esquerda, “% dos demais” é a fatia de cada eliminado dentro do total dos eliminados. No meio, “% do bruto” é a fatia de cada fonte no total. À direita, “% do líquido” é a fatia de cada destino.</li>
     </ul>
@@ -146,11 +146,12 @@ footer{max-width:1280px;margin:auto;padding:0 24px 30px;color:var(--mut);font-si
     <ul>
       <li><b>Seções comparáveis.</b> Usamos só as seções com boletim de urna nos dois turnos (<span id="mSec"></span> seções). <span id="mExc"></span> Seções não instaladas não têm boletim e ficam de fora.</li>
       <li><b>Eleitorado muda.</b> O cadastro de cada seção pode mudar entre os turnos (transferências, seções agregadas). Em <span id="mApt"></span> seções o número de aptos difere entre os turnos (no total do país a soma é a mesma). Isso entra na conta como parte do “comparecimento”.</li>
-      <li><b>Candidato 28.</b> No 1º turno os boletins trazem votos nominais para o nº 28 (Leonardo Avalanche, 5.246 votos no país), que não aparece entre os candidatos do resultado oficial (provável candidatura anulada; o TSE os conta como nulos). Aqui eles entram como um dos “demais candidatos”, com asterisco.</li>
+      <li><b>Candidato 28.</b> No 1º turno os boletins trazem votos nominais para o nº 28 (Leonardo Avalanche, 5.246 votos no país), que não aparece entre os candidatos do resultado oficial (o motivo não consta destes dados; uma explicação possível, não verificada aqui, é registro indeferido ou cancelado, com votos tratados como nulos na totalização). Aqui eles entram como um dos “demais candidatos”, com asterisco.</li>
       <li><b>Sem classificação.</b> Alguns painéis separam “nulos comuns” de votos “sem classificação”/anulados. Os boletins deste banco só trazem <i>nominal</i>, <i>branco</i> e <i>nulo</i> para presidente, então não há esse componente (o caso mais parecido é o nº 28 acima).</li>
-      <li><b>Hora de fechamento.</b> É o campo <code>dt_encerramento</code> do boletim do <b>2º turno</b>, registrado pelo relógio da urna em <b>hora local</b> (por isso o Acre aparece às 15h e o Amazonas às 15h–16h: todas fecham às 17h de Brasília). O modo “Brasília” converte usando um fuso <i>estimado</i> por município: as urnas abrem às 8h de Brasília, então fuso = 8 − hora local de abertura mais comum no município. No exterior (ZZ) não há conversão confiável: em “Brasília” essas seções caem em “sem hora”. Urnas que fecham tarde costumam ser filas ou urnas substituídas; a hora do relógio da urna pode ter pequenos desvios.</li>
-      <li><b>Barras de porcentagem.</b> “Votos no 2º turno” usa só os votos nominais de 13 e 22 (brancos e nulos ficam fora, informados abaixo da barra); com todos os filtros vazios ela bate com o resultado oficial, porque toda seção do 2º turno tem par no 1º. “Resultado da transferência” divide o ganho líquido (2º − 1º turno) entre os dois. Se num recorte um candidato <i>perdeu</i> votos, a barra passa a mostrar o tamanho de cada variação em valor absoluto, com a parte da perda listrada e um aviso.</li>
+      <li><b>Hora de fechamento.</b> É o campo <code>dt_encerramento</code> do boletim do <b>2º turno</b>, registrado pelo relógio da urna em <b>hora local</b> (por isso o Acre aparece às 15h e o Amazonas às 15h–16h: todas fecham às 17h de Brasília). O modo “Brasília” converte usando um fuso <i>estimado</i> por município: as urnas abrem às 8h de Brasília, então fuso = 8 − hora local de abertura mais comum no município. No exterior (ZZ) não há conversão confiável: em “Brasília” essas seções caem em “sem hora”. Encerramentos depois do horário podem ter causas como eleitores em fila no horário de encerramento ou substituição de urna; os dados não distinguem as causas. O relógio da urna pode ter pequenos desvios.</li>
+      <li><b>Barras de porcentagem.</b> “Votos no 2º turno” usa só os votos nominais de 13 e 22 (brancos e nulos ficam fora, informados abaixo da barra); com todos os filtros vazios ela bate com o resultado oficial, porque toda seção do 2º turno tem par no 1º. “Divisão do ganho líquido” divide o ganho líquido (2º − 1º turno) entre os dois. Se num recorte um candidato <i>perdeu</i> votos, a barra passa a mostrar o tamanho de cada variação em valor absoluto, com a parte da perda listrada e um aviso.</li>
       <li>Tudo é uma <b>aproximação aritmética agregada</b>: quanto menor o recorte (uma cidade pequena, uma hora com poucas urnas), mais os números são sensíveis a detalhes de poucas seções.</li>
+      <li><b>Natureza da análise.</b> Estatística descritiva sobre dados públicos do TSE: descreve totais, não indica causas. Para resultados oficiais, consulte <a href="https://resultados.tse.jus.br">resultados.tse.jus.br</a>.</li>
     </ul>
     <p class="muted" id="validacoes"></p>
   </section>
@@ -369,7 +370,7 @@ function desenha(dec) {
     txt(gN, cx, o.y - 7, pct(o.f.v, dec.bruto) + " do bruto", {"text-anchor": "middle", fill: "#6a4fb0", "font-size": 11.5, "font-weight": 600});
   }
   const rc = el("rect", {x: X2, y: cy, width: NW + 2, height: BAR, fill: COR.centro, rx: 2}, gN);
-  hover(rc, `<b>Total movimentado</b><br>bruto (fontes) = ${n(dec.bruto)}<br>líquido (destinos) = ${n(dec.liquido)}`);
+  hover(rc, `<b>Total da decomposição</b><br>bruto (fontes) = ${n(dec.bruto)}<br>líquido (destinos) = ${n(dec.liquido)}`);
   txt(gN, X2 + NW / 2, cy - 8, "Total: " + n(dec.bruto), {"text-anchor": "middle", fill: "#6a4fb0", "font-size": 12, "font-weight": 600});
   for (const o of c3) {
     const r = el("rect", {x: X3, y: o.y, width: NW, height: o.h, fill: corDe(o.d), rx: 1, "fill-opacity": o.d.inv ? .6 : 1}, gN);
