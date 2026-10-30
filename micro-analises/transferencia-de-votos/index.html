@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transferência de votos 1º → 2º turno · Presidente 2026</title>
+<style>
+:root{--bg:#f7f6fb;--card:#fff;--ink:#23212b;--mut:#6b6878;--line:#e6e3ee;--roxo:#7b4fc9;--rosa:#c8506e;--azul:#4f7fae;--r:14px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.45}
+header{padding:28px 24px 8px;max-width:1280px;margin:auto}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+h2{font-size:18px;margin:0 0 10px}
+.sub{color:var(--mut);margin:0}
+main{max-width:1280px;margin:auto;padding:12px 24px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.card,.kpis{min-width:0}
+@media(max-width:600px){main,header{padding-left:12px;padding-right:12px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:0 1px 2px rgba(30,20,60,.04)}
+.filtros{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px}
+@media(max-width:900px){.filtros{grid-template-columns:1fr}}
+.flabel{flex-wrap:wrap;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:#fbfaff;border-radius:999px;padding:4px 10px;font-size:13px;cursor:pointer;user-select:none;color:var(--ink)}
+.chip.on{background:var(--roxo);border-color:var(--roxo);color:#fff}
+.chip.x::after{content:" ×";opacity:.8}
+input[type=search]{width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+.lista{max-height:180px;overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:6px;display:none;background:#fff}
+.lista div{padding:6px 10px;cursor:pointer;font-size:14px}
+.lista div:hover{background:#f1edfb}
+.lista small{color:var(--mut)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer;color:var(--mut)}
+.seg button.on{background:var(--roxo);color:#fff}
+.horas{display:flex;flex-wrap:wrap;gap:6px}
+.hora{display:flex;align-items:center;gap:4px;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:3px 8px;cursor:pointer;background:#fbfaff}
+.hora small{color:var(--mut)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 14px;font:inherit;cursor:pointer}
+.btn:hover{border-color:var(--roxo);color:var(--roxo)}
+.linkbtn{border:0;background:none;color:var(--roxo);cursor:pointer;font:inherit;font-size:12px;padding:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px}
+.kpi .v{font-size:22px;font-weight:650;letter-spacing:-.01em}
+.kpi .l{font-size:12px;color:var(--mut)}
+.kpi.l13 .v{color:var(--rosa)} .kpi.l22 .v{color:var(--azul)}
+#sankeyBox{overflow-x:auto}
+svg text{font-family:inherit}
+.tt{position:fixed;pointer-events:none;background:#23212b;color:#fff;padding:8px 10px;border-radius:8px;font-size:13px;max-width:320px;opacity:0;transition:opacity .1s;z-index:10}
+.barras{display:grid;gap:22px}
+.bt{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.bt b{font-size:15px}.bt span{font-size:12px;color:var(--mut)}
+.barra{display:flex;height:34px;border-radius:10px;overflow:hidden;background:#eee;font-size:13px;font-weight:650;color:#fff}
+.barra div{display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden;min-width:0;transition:width .25s}
+.barra .s13{background:var(--rosa)}.barra .s22{background:var(--azul);justify-content:flex-end}
+.barra .perda{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.38) 0 6px,transparent 6px 12px)}
+.leg{display:flex;justify-content:space-between;gap:12px;margin-top:6px;font-size:13px;flex-wrap:wrap}
+.leg div:last-child{text-align:right}
+.leg .c13{color:var(--rosa);font-weight:600}.leg .c22{color:var(--azul);font-weight:600}
+.aviso{margin-top:6px;font-size:12.5px;background:#fff6e5;border:1px solid #f1d9a8;border-radius:8px;padding:6px 10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}
+td:first-child,th:first-child{text-align:left}
+th{font-size:12px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.ok{color:#2c7a4b;font-weight:600}.bad{color:#b3261e;font-weight:600}
+.leia p,.leia li{max-width:880px}
+.leia code{background:#f1edfb;padding:1px 5px;border-radius:5px}
+.formula{background:#f7f4ff;border-left:4px solid var(--roxo);padding:10px 14px;border-radius:8px;margin:10px 0;font-size:15px}
+.muted{color:var(--mut);font-size:13px}
+.vazio{padding:60px;text-align:center;color:var(--mut)}
+footer{max-width:1280px;margin:auto;padding:0 24px 30px;color:var(--mut);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>De onde vieram os votos do 2º turno?</h1>
+  <p class="sub">Presidente 2026 · decomposição aritmética do ganho de <b style="color:var(--rosa)">13 · Lula</b> e <b style="color:var(--azul)">22 · Flávio Bolsonaro</b> entre o 1º turno (4/out) e o 2º turno (25/out), somando seções eleitorais comparáveis. <a href="#leia">Como ler / limitações ↓</a></p>
+</header>
+<main>
+  <section class="card filtros" aria-label="Filtros">
+    <div>
+      <div class="flabel"><span>Estado (UF)</span><button class="linkbtn" id="ufLimpar">todos</button></div>
+      <div class="chips" id="ufChips"></div>
+    </div>
+    <div>
+      <div class="flabel"><span>Cidade</span><button class="linkbtn" id="munLimpar">todas</button></div>
+      <input type="search" id="munBusca" placeholder="Buscar município…" autocomplete="off">
+      <div class="lista" id="munLista"></div>
+      <div class="chips" id="munChips" style="margin-top:8px"></div>
+    </div>
+    <div>
+      <div class="flabel"><span>Hora de fechamento da urna (2º turno)</span>
+        <span class="seg" id="fusoSeg"><button data-m="local" class="on" title="hora registrada no relógio da urna (hora local)">local</button><button data-m="bsb" title="hora local convertida para Brasília (fuso estimado por município)">Brasília</button></span></div>
+      <div class="horas" id="horas"></div>
+      <div style="margin-top:8px;display:flex;gap:10px;align-items:center"><button class="linkbtn" id="horasTodas">marcar todas</button><button class="linkbtn" id="horasNenhuma">desmarcar todas</button></div>
+    </div>
+    <div style="grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+      <span class="muted" id="resumoFiltro"></span>
+      <button class="btn" id="limpar">Limpar filtros</button>
+    </div>
+  </section>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card barras" aria-label="Resumo em barras">
+    <div>
+      <div class="bt"><b>Votos no 2º turno</b><span>% dos votos nominais (13 + 22) · universo: seções comparáveis (com boletim nos 2 turnos) dentro do filtro</span></div>
+      <div class="barra" id="barra1"></div>
+      <div class="leg" id="leg1"></div>
+      <div class="muted" id="extra1" style="margin-top:4px"></div>
+    </div>
+    <div>
+      <div class="bt"><b>Resultado da transferência</b><span>como o ganho líquido do 1º → 2º turno se dividiu entre 13 e 22</span></div>
+      <div class="barra" id="barra2"></div>
+      <div class="leg" id="leg2"></div>
+      <div id="aviso2"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Fluxo: fontes → ganho de cada finalista</h2>
+    <div id="sankeyBox"><svg id="sankey" role="img" aria-label="Diagrama de Sankey"></svg></div>
+    <p class="muted" id="notaSankey"></p>
+  </section>
+
+  <section class="card">
+    <h2>A conta, em tabela</h2>
+    <div style="overflow-x:auto"><table id="tabela"></table></div>
+  </section>
+
+  <section class="card leia" id="leia">
+    <h2>Como ler / limitações</h2>
+    <p><b>A ideia.</b> Pegamos as mesmas seções eleitorais (as mesmas urnas) nos dois turnos e somamos. Entre um turno e outro, Lula e Flávio ganharam votos. Esses votos “a mais” tiveram que vir de algum lugar, porque em cada urna vale sempre a regra:</p>
+    <div class="formula">comparecimento = votos nos candidatos + brancos + nulos</div>
+    <p>Comparando 1º e 2º turno, essa regra vira uma conta de “de onde veio e para onde foi”:</p>
+    <div class="formula">ganho do 13 + ganho do 22 = (mais gente votando) + (menos brancos) + (menos nulos) + (votos que, no 1º turno, foram para os candidatos eliminados)</div>
+    <ul>
+      <li><b>Ganho do candidato</b> = votos no 2º turno − votos no 1º turno, nas mesmas seções.</li>
+      <li><b>Aumento líquido do comparecimento</b> = comparecimento do 2º turno − do 1º. “Líquido” porque é saldo: alguém que votou só no 1º e alguém que votou só no 2º se cancelam.</li>
+      <li><b>Redução de brancos / de nulos</b> = brancos (ou nulos) do 1º turno − do 2º.</li>
+      <li><b>Votos dos demais candidatos</b> = tudo o que os 11 candidatos eliminados (e o nº 28, veja abaixo) tiveram no 1º turno. No 2º turno eles não existem, então esses votos obrigatoriamente “se redistribuíram”.</li>
+      <li>Se algum termo der <b>negativo</b> no recorte escolhido (por exemplo, o comparecimento caiu, ou os brancos aumentaram, ou um candidato perdeu votos), ele aparece do <b>outro lado</b> do diagrama: “Queda do comparecimento”, “Aumento de brancos”, “Perda do candidato…”. Assim todas as faixas são positivas e o diagrama sempre fecha: <b>bruto</b> (soma das fontes, à esquerda) = <b>líquido</b> (soma dos destinos, à direita).</li>
+      <li>Na coluna da esquerda, “% dos demais” é a fatia de cada eliminado dentro do total dos eliminados. No meio, “% do bruto” é a fatia de cada fonte no total. À direita, “% do líquido” é a fatia de cada destino.</li>
+    </ul>
+    <p><b>O que isto NÃO diz.</b> O diagrama <b>não</b> mostra como cada eleitor votou nem “para quem foi” o voto de cada eliminado. Ele só diz que, <i>somando</i>, os números fecham assim. Que a fonte “votos dos demais” e o destino “ganho do 13” estejam ligados pelo nó roxo central é proposital: o roxo é um “caixa comum” — não sabemos qual fonte alimentou qual ganho. Tirar conclusões sobre comportamento individual a partir de totais é a chamada <i>falácia ecológica</i>. Para chegar perto disso seria preciso um modelo estatístico (inferência ecológica), com suas próprias incertezas.</p>
+    <p><b>Limitações e ressalvas.</b></p>
+    <ul>
+      <li><b>Seções comparáveis.</b> Usamos só as seções com boletim de urna nos dois turnos (<span id="mSec"></span> seções). <span id="mExc"></span> Seções não instaladas não têm boletim e ficam de fora.</li>
+      <li><b>Eleitorado muda.</b> O cadastro de cada seção pode mudar entre os turnos (transferências, seções agregadas). Em <span id="mApt"></span> seções o número de aptos difere entre os turnos (no total do país a soma é a mesma). Isso entra na conta como parte do “comparecimento”.</li>
+      <li><b>Candidato 28.</b> No 1º turno os boletins trazem votos nominais para o nº 28 (Leonardo Avalanche, 5.246 votos no país), que não aparece entre os candidatos do resultado oficial (provável candidatura anulada; o TSE os conta como nulos). Aqui eles entram como um dos “demais candidatos”, com asterisco.</li>
+      <li><b>Sem classificação.</b> Alguns painéis separam “nulos comuns” de votos “sem classificação”/anulados. Os boletins deste banco só trazem <i>nominal</i>, <i>branco</i> e <i>nulo</i> para presidente, então não há esse componente (o caso mais parecido é o nº 28 acima).</li>
+      <li><b>Hora de fechamento.</b> É o campo <code>dt_encerramento</code> do boletim do <b>2º turno</b>, registrado pelo relógio da urna em <b>hora local</b> (por isso o Acre aparece às 15h e o Amazonas às 15h–16h: todas fecham às 17h de Brasília). O modo “Brasília” converte usando um fuso <i>estimado</i> por município: as urnas abrem às 8h de Brasília, então fuso = 8 − hora local de abertura mais comum no município. No exterior (ZZ) não há conversão confiável: em “Brasília” essas seções caem em “sem hora”. Urnas que fecham tarde costumam ser filas ou urnas substituídas; a hora do relógio da urna pode ter pequenos desvios.</li>
+      <li><b>Barras de porcentagem.</b> “Votos no 2º turno” usa só os votos nominais de 13 e 22 (brancos e nulos ficam fora, informados abaixo da barra); com todos os filtros vazios ela bate com o resultado oficial, porque toda seção do 2º turno tem par no 1º. “Resultado da transferência” divide o ganho líquido (2º − 1º turno) entre os dois. Se num recorte um candidato <i>perdeu</i> votos, a barra passa a mostrar o tamanho de cada variação em valor absoluto, com a parte da perda listrada e um aviso.</li>
+      <li>Tudo é uma <b>aproximação aritmética agregada</b>: quanto menor o recorte (uma cidade pequena, uma hora com poucas urnas), mais os números são sensíveis a detalhes de poucas seções.</li>
+    </ul>
+    <p class="muted" id="validacoes"></p>
+  </section>
+</main>
+<footer>Dados públicos do TSE (boletins de urna por seção). Gerado por <code>micro-analises/transferencia-de-votos/gerar_dados.py</code> em <span id="geradoEm"></span>.</footer>
+<div class="tt" id="tt"></div>
+<script>
+"use strict";
+const fmtN = new Intl.NumberFormat("pt-BR");
+const fmtP = new Intl.NumberFormat("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const n = v => fmtN.format(v);
+const pct = (a, b) => b ? fmtP.format(100 * a / b) + "%" : "–";
+const sgn = v => (v > 0 ? "+" : "") + n(v);
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const COR = {comp:"#5aa89a", br:"#b3a3d6", nu:"#8f8b9c", dem:"#a88b5c", centro:"#7b4fc9", 13:"#c8506e", 22:"#4f7fae"};
+const CORES_CAND = ["#7d8f99","#9a7b4f","#b5675f","#8a9a5b","#6f8fb3","#a07aa6","#c49a6c","#5f9e8f","#8c7a6b","#b38ba3","#7a8c6e","#999"];
+
+let D, M, L, NR;              // dados, municípios, linhas, nº de linhas
+const st = {ufs: new Set(), muns: new Set(), modo: "local", horas: null}; // horas: Set ou null (= todas)
+
+function horaDe(i) {
+  const h = L.h[i];
+  if (st.modo === "local") return h;
+  const f = M.fuso[L.m[i]];
+  return (h < 0 || f === null || f === undefined) ? -1 : h + f;
+}
+
+function agrega() {
+  const t = {n:0, a1:0, a2:0, c1:0, c2:0, b1:0, b2:0, u1:0, u2:0, l1:0, l2:0, f1:0, f2:0, o1:0, muns:new Set(), d:new Array(D.demais.length).fill(0)};
+  const K = ["n","a1","a2","c1","c2","b1","b2","u1","u2","l1","l2","f1","f2","o1"];
+  for (let i = 0; i < NR; i++) {
+    const m = L.m[i];
+    if (st.ufs.size && !st.ufs.has(M.uf[m])) continue;
+    if (st.muns.size && !st.muns.has(m)) continue;
+    if (st.horas && !st.horas.has(horaDe(i))) continue;
+    for (const k of K) t[k] += L[k][i];
+    for (let j = 0; j < t.d.length; j++) t.d[j] += L.d[j][i];
+    t.muns.add(m);
+  }
+  return t;
+}
+
+// ---------- filtros ----------
+function montaUF() {
+  $("ufChips").innerHTML = D.ufs.map((u, i) => `<span class="chip${st.ufs.has(i) ? " on" : ""}" data-i="${i}">${u === "ZZ" ? "Exterior (ZZ)" : u}</span>`).join("");
+}
+$("ufChips").onclick = e => {
+  const c = e.target.closest(".chip"); if (!c) return;
+  const i = +c.dataset.i;
+  st.ufs.has(i) ? st.ufs.delete(i) : st.ufs.add(i);
+  if (st.ufs.size) for (const m of [...st.muns]) if (!st.ufs.has(M.uf[m])) st.muns.delete(m);
+  atualiza();
+};
+$("ufLimpar").onclick = () => { st.ufs.clear(); atualiza(); };
+const semAcento = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+let munNorm;
+function buscaMun() {
+  const q = semAcento($("munBusca").value.trim());
+  const box = $("munLista");
+  if (!q) { box.style.display = "none"; return; }
+  const out = [];
+  for (let m = 0; m < M.nome.length && out.length < 40; m++) {
+    if (st.ufs.size && !st.ufs.has(M.uf[m])) continue;
+    if (st.muns.has(m)) continue;
+    if (munNorm[m].includes(q)) out.push(m);
+  }
+  out.sort((a, b) => (munNorm[a].startsWith(q) ? 0 : 1) - (munNorm[b].startsWith(q) ? 0 : 1));
+  box.innerHTML = out.length ? out.map(m => `<div data-m="${m}">${esc(M.nome[m])} <small>${D.ufs[M.uf[m]]}</small></div>`).join("") : `<div class="muted">nenhum município${st.ufs.size ? " nas UFs selecionadas" : ""}</div>`;
+  box.style.display = "block";
+}
+$("munBusca").oninput = buscaMun;
+$("munBusca").onfocus = buscaMun;
+$("munLista").onclick = e => {
+  const d = e.target.closest("[data-m]"); if (!d) return;
+  st.muns.add(+d.dataset.m); $("munBusca").value = ""; $("munLista").style.display = "none"; atualiza();
+};
+document.addEventListener("click", e => { if (!e.target.closest("#munLista,#munBusca")) $("munLista").style.display = "none"; });
+$("munChips").onclick = e => { const c = e.target.closest(".chip"); if (!c) return; st.muns.delete(+c.dataset.m); atualiza(); };
+$("munLimpar").onclick = () => { st.muns.clear(); atualiza(); };
+function montaMunChips() {
+  $("munChips").innerHTML = [...st.muns].map(m => `<span class="chip on x" data-m="${m}" title="remover">${esc(M.nome[m])} · ${D.ufs[M.uf[m]]}</span>`).join("");
+}
+// horas: contagem de seções por hora respeitando UF/cidade (não a própria hora)
+function montaHoras() {
+  const cont = new Map();
+  for (let i = 0; i < NR; i++) {
+    const m = L.m[i];
+    if (st.ufs.size && !st.ufs.has(M.uf[m])) continue;
+    if (st.muns.size && !st.muns.has(m)) continue;
+    const h = horaDe(i); cont.set(h, (cont.get(h) || 0) + L.n[i]);
+  }
+  const hs = [...cont.keys()].sort((a, b) => (a < 0) - (b < 0) || a - b);
+  $("horas").innerHTML = hs.map(h => `<label class="hora"><input type="checkbox" data-h="${h}" ${!st.horas || st.horas.has(h) ? "checked" : ""}> ${h < 0 ? "sem hora" : h + "h"} <small>${n(cont.get(h))}</small></label>`).join("");
+}
+$("horas").onchange = () => {
+  const boxes = [...$("horas").querySelectorAll("input")];
+  const sel = boxes.filter(b => b.checked).map(b => +b.dataset.h);
+  st.horas = sel.length === boxes.length ? null : new Set(sel);
+  atualiza();
+};
+$("horasTodas").onclick = () => { st.horas = null; atualiza(); };
+$("horasNenhuma").onclick = () => { st.horas = new Set(); atualiza(); };
+$("fusoSeg").onclick = e => {
+  const b = e.target.closest("button"); if (!b || b.dataset.m === st.modo) return;
+  st.modo = b.dataset.m; st.horas = null;
+  for (const x of $("fusoSeg").children) x.classList.toggle("on", x === b);
+  atualiza();
+};
+$("limpar").onclick = () => { st.ufs.clear(); st.muns.clear(); st.horas = null; $("munBusca").value = ""; atualiza(); };
+
+// ---------- decomposição ----------
+function decompoe(t) {
+  const termos = [
+    {k:"comp", v:t.c2 - t.c1, pos:"Aumento líquido do comparecimento", neg:"Queda líquida do comparecimento"},
+    {k:"br", v:t.b1 - t.b2, pos:"Redução de brancos", neg:"Aumento de brancos"},
+    {k:"nu", v:t.u1 - t.u2, pos:"Redução de nulos", neg:"Aumento de nulos"},
+    {k:"dem", v:t.o1, pos:"Votos dos demais candidatos", neg:"Votos dos demais candidatos"},
+  ];
+  const ganhos = [
+    {k:"13", v:t.l2 - t.l1, pos:"Ganho do candidato 13", neg:"Perda do candidato 13"},
+    {k:"22", v:t.f2 - t.f1, pos:"Ganho do candidato 22", neg:"Perda do candidato 22"},
+  ];
+  const fontes = [], destinos = [];
+  for (const x of termos) if (x.v > 0) fontes.push({k:x.k, label:x.pos, v:x.v}); else if (x.v < 0) destinos.push({k:x.k, label:x.neg, v:-x.v, inv:true});
+  for (const x of ganhos) if (x.v > 0) destinos.unshift({k:x.k, label:x.pos, v:x.v}); else if (x.v < 0) fontes.push({k:x.k, label:x.neg, v:-x.v, inv:true});
+  destinos.sort((a, b) => (a.inv ? 1 : 0) - (b.inv ? 1 : 0) || (a.k === "13" ? -1 : b.k === "13" ? 1 : 0));
+  const bruto = fontes.reduce((s, x) => s + x.v, 0), liquido = destinos.reduce((s, x) => s + x.v, 0);
+  const cands = D.demais.map((c, j) => ({nr:c.nr, nome:c.nome, v:t.d[j], cor:CORES_CAND[j % CORES_CAND.length]})).filter(c => c.v > 0).sort((a, b) => b.v - a.v);
+  return {termos, ganhos, fontes, destinos, bruto, liquido, cands};
+}
+
+// ---------- Sankey (SVG puro, sem bibliotecas) ----------
+const SVGNS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent) { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, attrs) { const e = el("text", Object.assign({x, y, "font-size":13, fill:"#23212b"}, attrs || {}), parent); e.textContent = s; return e; }
+function band(x0, y0a, y0b, x1, y1a, y1b) {
+  const xm = (x0 + x1) / 2;
+  return `M${x0},${y0a}C${xm},${y0a} ${xm},${y1a} ${x1},${y1a}L${x1},${y1b}C${xm},${y1b} ${xm},${y0b} ${x0},${y0b}Z`;
+}
+const tt = $("tt");
+function hover(e, html) { e.addEventListener("mousemove", ev => { tt.innerHTML = html; tt.style.opacity = 1; tt.style.left = Math.min(ev.clientX + 14, innerWidth - 330) + "px"; tt.style.top = (ev.clientY + 14) + "px"; }); e.addEventListener("mouseleave", () => tt.style.opacity = 0); }
+function corDe(x) { return COR[x.k] || "#999"; }
+function nomeCand(c) { return `${c.nr} · ${c.nome}${c.nr === 28 ? " *" : ""}`; }
+
+function desenha(dec) {
+  const svg = $("sankey"); svg.innerHTML = "";
+  if (!dec.bruto) { svg.setAttribute("width", 10); svg.setAttribute("height", 10); $("notaSankey").innerHTML = `<div class="vazio">Nenhuma seção no filtro atual.</div>`; return; }
+  $("notaSankey").textContent = "Passe o mouse nos blocos e nas faixas para ver os valores. O nó roxo é o “caixa comum”: não indica qual fonte foi para qual candidato.";
+  const W = Math.max(860, $("sankeyBox").clientWidth), NW = 12, BAR = 380;
+  const k = BAR / dec.bruto;
+  const X0 = 210, X1 = Math.round(W * 0.47), X2 = Math.round(W * 0.68), X3 = W - 245;
+  const top = 10;
+  // coluna 0: candidatos eliminados (rótulo à esquerda)
+  let y = top; const c0 = dec.cands.map(c => { const h = Math.max(1, c.v * k); const slot = Math.max(h + 8, 52); const o = {c, y, h}; y += slot; return o; });
+  const h0 = y;
+  // coluna 1: fontes (rótulo acima)
+  y = top; const c1 = dec.fontes.map(f => { y += 50; const h = Math.max(1, f.v * k); const o = {f, y, h}; y += h + 14; return o; });
+  const h1 = y;
+  const H = Math.max(h0, h1, BAR + 60) + 10;
+  // nó central
+  const cy = top + 50 + Math.max(0, (Math.min(h1, H) - top - 50 - BAR) / 2) - 10;
+  // coluna 3: destinos (rótulo à direita)
+  const slots3 = dec.destinos.map(d => Math.max(d.v * k, 1) + Math.max(0, 54 - d.v * k));
+  const tot3 = slots3.reduce((a, b) => a + b, 0) + 12 * (slots3.length - 1);
+  y = Math.max(top, cy + BAR / 2 - tot3 / 2);
+  const c3 = dec.destinos.map((d, i) => { const h = Math.max(1, d.v * k); const o = {d, y, h}; y += slots3[i] + 12; return o; });
+  const Hf = Math.max(H, y + 10);
+  svg.setAttribute("width", W); svg.setAttribute("height", Hf); svg.setAttribute("viewBox", `0 0 ${W} ${Hf}`);
+  const gL = el("g", {}, svg), gN = el("g", {}, svg);
+
+  // links col0 -> nó "demais"
+  const dem = c1.find(o => o.f.k === "dem");
+  if (dem) {
+    let yy = dem.y;
+    for (const o of c0) {
+      const h = o.c.v * k;
+      const p = el("path", {d: band(X0 + NW, o.y, o.y + o.h, X1, yy, yy + h), fill: o.c.cor, "fill-opacity": .35}, gL);
+      hover(p, `<b>${esc(nomeCand(o.c))}</b> → votos dos demais<br>${n(o.c.v)} votos · ${pct(o.c.v, dec.fontes.find(f => f.k === "dem").v)} dos demais`);
+      yy += h;
+    }
+  }
+  // links col1 -> centro
+  let yc = cy;
+  for (const o of c1) {
+    const h = o.f.v * k;
+    const p = el("path", {d: band(X1 + NW, o.y, o.y + o.h, X2, yc, yc + h), fill: corDe(o.f), "fill-opacity": .4}, gL);
+    hover(p, `<b>${esc(o.f.label)}</b><br>${n(o.f.v)} · ${pct(o.f.v, dec.bruto)} do bruto`);
+    yc += h;
+  }
+  // links centro -> col3
+  yc = cy;
+  for (const o of c3) {
+    const h = o.d.v * k;
+    const p = el("path", {d: band(X2 + NW, yc, yc + h, X3, o.y, o.y + o.h), fill: corDe(o.d), "fill-opacity": o.d.inv ? .25 : .45}, gL);
+    hover(p, `<b>${esc(o.d.label)}</b><br>${n(o.d.v)} · ${pct(o.d.v, dec.liquido)} do líquido`);
+    yc += h;
+  }
+  // nós e rótulos
+  for (const o of c0) {
+    const r = el("rect", {x: X0, y: o.y, width: NW, height: o.h, fill: o.c.cor, rx: 1}, gN);
+    hover(r, `<b>${esc(nomeCand(o.c))}</b><br>${n(o.c.v)} votos no 1º turno`);
+    const g = el("g", {}, gN);
+    const nome = nomeCand(o.c);
+    txt(g, 0, o.y + 12, nome.length > 27 ? nome.slice(0, 26) + "…" : nome, {"font-size": 12.5});
+    txt(g, 0, o.y + 27, n(o.c.v), {fill: "#6b6878", "font-size": 12});
+    txt(g, 0, o.y + 41, pct(o.c.v, dec.fontes.find(f => f.k === "dem")?.v || 0) + " dos demais", {fill: "#6a4fb0", "font-size": 11.5, "font-weight": 600});
+  }
+  for (const o of c1) {
+    const r = el("rect", {x: X1, y: o.y, width: NW, height: o.h, fill: corDe(o.f), rx: 1}, gN);
+    hover(r, `<b>${esc(o.f.label)}</b><br>${n(o.f.v)} · ${pct(o.f.v, dec.bruto)} do bruto`);
+    const cx = X1 + NW / 2;
+    txt(gN, cx, o.y - 36, o.f.label, {"text-anchor": "middle", "font-size": 12.5});
+    txt(gN, cx, o.y - 21, n(o.f.v), {"text-anchor": "middle", fill: "#6b6878", "font-size": 12});
+    txt(gN, cx, o.y - 7, pct(o.f.v, dec.bruto) + " do bruto", {"text-anchor": "middle", fill: "#6a4fb0", "font-size": 11.5, "font-weight": 600});
+  }
+  const rc = el("rect", {x: X2, y: cy, width: NW + 2, height: BAR, fill: COR.centro, rx: 2}, gN);
+  hover(rc, `<b>Total movimentado</b><br>bruto (fontes) = ${n(dec.bruto)}<br>líquido (destinos) = ${n(dec.liquido)}`);
+  txt(gN, X2 + NW / 2, cy - 8, "Total: " + n(dec.bruto), {"text-anchor": "middle", fill: "#6a4fb0", "font-size": 12, "font-weight": 600});
+  for (const o of c3) {
+    const r = el("rect", {x: X3, y: o.y, width: NW, height: o.h, fill: corDe(o.d), rx: 1, "fill-opacity": o.d.inv ? .6 : 1}, gN);
+    hover(r, `<b>${esc(o.d.label)}</b><br>${n(o.d.v)} · ${pct(o.d.v, dec.liquido)} do líquido`);
+    const ym = o.y + Math.min(o.h, 200) / 2 - 8;
+    txt(gN, X3 + NW + 8, ym, o.d.label, {"font-size": 13, "font-weight": o.d.inv ? 400 : 600});
+    txt(gN, X3 + NW + 8, ym + 16, n(o.d.v), {fill: "#6b6878", "font-size": 12});
+    txt(gN, X3 + NW + 8, ym + 31, pct(o.d.v, dec.liquido) + " do líquido", {fill: "#6a4fb0", "font-size": 11.5, "font-weight": 600});
+  }
+}
+
+// ---------- KPIs e tabela ----------
+function kpis(t, dec) {
+  const g13 = t.l2 - t.l1, g22 = t.f2 - t.f1;
+  $("kpis").innerHTML = `
+    <div class="kpi"><div class="v">${n(t.n)}</div><div class="l">seções incluídas · ${n(t.muns.size)} municípios</div></div>
+    <div class="kpi"><div class="v">${n(t.c2)}</div><div class="l">comparecimento 2º turno (${sgn(t.c2 - t.c1)} vs 1º)</div></div>
+    <div class="kpi l13"><div class="v">${sgn(g13)}</div><div class="l">13 · Lula: ${n(t.l1)} → ${n(t.l2)} (${pct(t.l2, t.l2 + t.f2)} dos válidos no 2º)</div></div>
+    <div class="kpi l22"><div class="v">${sgn(g22)}</div><div class="l">22 · Flávio: ${n(t.f1)} → ${n(t.f2)} (${pct(t.f2, t.l2 + t.f2)} dos válidos no 2º)</div></div>
+    <div class="kpi"><div class="v">${n(dec.bruto)}</div><div class="l">bruto = líquido ${dec.bruto === dec.liquido ? '<span class="ok">✓ fecha</span>' : '<span class="bad">✗ não fecha</span>'}</div></div>`;
+}
+function tabela(t, dec) {
+  const linha = (a, b, c, d) => `<tr><td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td></tr>`;
+  let h = `<tr><th>Item</th><th>1º turno</th><th>2º turno</th><th>Efeito na conta</th></tr>`;
+  h += linha("Comparecimento", n(t.c1), n(t.c2), sgn(t.c2 - t.c1));
+  h += linha("Brancos", n(t.b1), n(t.b2), sgn(t.b1 - t.b2) + " <span class='muted'>(redução)</span>");
+  h += linha("Nulos", n(t.u1), n(t.u2), sgn(t.u1 - t.u2) + " <span class='muted'>(redução)</span>");
+  h += linha("Demais candidatos", n(t.o1), "—", sgn(t.o1));
+  h += `<tr><td><b>= Soma das fontes</b></td><td></td><td></td><td><b>${sgn(t.c2 - t.c1 + t.b1 - t.b2 + t.u1 - t.u2 + t.o1)}</b></td></tr>`;
+  h += linha("<span style='color:var(--rosa)'>13 · Lula</span>", n(t.l1), n(t.l2), sgn(t.l2 - t.l1));
+  h += linha("<span style='color:var(--azul)'>22 · Flávio Bolsonaro</span>", n(t.f1), n(t.f2), sgn(t.f2 - t.f1));
+  h += `<tr><td><b>= Ganho somado dos dois</b></td><td></td><td></td><td><b>${sgn(t.l2 - t.l1 + t.f2 - t.f1)}</b></td></tr>`;
+  h += linha("Eleitores aptos <span class='muted'>(informativo)</span>", n(t.a1), n(t.a2), sgn(t.a2 - t.a1));
+  $("tabela").innerHTML = h;
+}
+
+
+// ---------- barras de porcentagem ----------
+function seg(cls, w, rotulo, dica) { return `<div class="${cls}" style="width:${w}%" title="${esc(dica)}">${w >= 12 ? rotulo : ""}</div>`; }
+function barras(t) {
+  const v = t.l2 + t.f2;
+  const p13 = v ? 100 * t.l2 / v : 0, p22 = v ? 100 - p13 : 0;
+  $("barra1").innerHTML = v ? seg("s13", p13, pct(t.l2, v), `13 · Lula: ${n(t.l2)} votos (${pct(t.l2, v)})`) + seg("s22", p22, pct(t.f2, v), `22 · Flávio: ${n(t.f2)} votos (${pct(t.f2, v)})`) : "";
+  $("leg1").innerHTML = `<div><span class="c13">13 · Lula</span> ${n(t.l2)} (${pct(t.l2, v)})</div><div><span class="c22">22 · Flávio</span> ${n(t.f2)} (${pct(t.f2, v)})</div>`;
+  $("extra1").textContent = v ? `Fora da barra: brancos ${n(t.b2)} (${pct(t.b2, t.c2)} do comparecimento) · nulos ${n(t.u2)} (${pct(t.u2, t.c2)}) · comparecimento ${n(t.c2)}.` : "";
+  const g13 = t.l2 - t.l1, g22 = t.f2 - t.f1, a13 = Math.abs(g13), a22 = Math.abs(g22), A = a13 + a22;
+  const neg = g13 < 0 || g22 < 0;
+  const w13 = A ? 100 * a13 / A : 0, w22 = A ? 100 - w13 : 0;
+  const rot = (g, a) => neg ? (g < 0 ? "−" + n(-g) : "+" + n(g)) : pct(a, A);
+  const txtG = (nome, g) => g < 0 ? `${nome} perdeu ${n(-g)} votos` : `${nome} ganhou ${n(g)} votos`;
+  $("barra2").innerHTML = A ? seg("s13" + (g13 < 0 ? " perda" : ""), w13, rot(g13, a13), txtG("13 · Lula", g13)) + seg("s22" + (g22 < 0 ? " perda" : ""), w22, rot(g22, a22), txtG("22 · Flávio", g22)) : "";
+  $("leg2").innerHTML = `<div><span class="c13">13 · Lula</span> ${g13 < 0 ? "perdeu " + n(-g13) : sgn(g13)}${neg ? "" : " (" + pct(a13, A) + ")"}</div><div><span class="c22">22 · Flávio</span> ${g22 < 0 ? "perdeu " + n(-g22) : sgn(g22)}${neg ? "" : " (" + pct(a22, A) + ")"}</div>`;
+  $("aviso2").innerHTML = neg ? `<div class="aviso">⚠ Neste recorte ${g13 < 0 && g22 < 0 ? "os dois candidatos perderam" : txtG(g13 < 0 ? "Lula" : "Flávio", Math.min(g13, g22))} entre os turnos (parte listrada). Como não dá para dividir um “ganho” negativo, a barra mostra o tamanho de cada variação em valor absoluto (saldo somado: ${sgn(g13 + g22)}).</div>` : "";
+}
+
+function atualiza() {
+  montaUF(); montaMunChips(); montaHoras();
+  const t = agrega(), dec = decompoe(t);
+  kpis(t, dec); barras(t); desenha(dec); tabela(t, dec);
+  const partes = [];
+  partes.push(st.ufs.size ? "UF: " + [...st.ufs].map(i => D.ufs[i]).join(", ") : "todas as UFs");
+  partes.push(st.muns.size ? st.muns.size + " município(s)" : "todos os municípios");
+  partes.push(st.horas ? "horas (" + (st.modo === "local" ? "local" : "Brasília") + "): " + ([...st.horas].sort((a, b) => a - b).map(h => h < 0 ? "sem hora" : h + "h").join(", ") || "nenhuma") : "qualquer hora");
+  $("resumoFiltro").textContent = "Filtro: " + partes.join(" · ");
+  window.__estado = {t, dec}; // para testes
+}
+
+function inicia(dados) {
+  D = dados; M = D.mun; L = D.linhas; NR = L.m.length;
+  munNorm = M.nome.map(semAcento);
+  const m = D.meta;
+  $("mSec").textContent = n(m.secoes_comparaveis);
+  $("mExc").textContent = m.secoes_excluidas_sem_par ? `${n(m.secoes_excluidas_sem_par)} seção(ões) com boletim só em um dos turnos ficou(aram) de fora.` : "";
+  $("mApt").textContent = n(m.secoes_com_aptos_diferentes);
+  $("geradoEm").textContent = new Date(m.gerado_em).toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}) + " (horário de Brasília)";
+  const v = m.validacoes;
+  $("validacoes").innerHTML = `Validações (Brasil): 2º turno Lula ${n(v.lula_2t.calculado)} vs oficial ${n(v.lula_2t.oficial)} ${v.lula_2t.ok ? "✓" : "✗"}; Flávio ${n(v.flavio_2t.calculado)} vs oficial ${n(v.flavio_2t.oficial)} ${v.flavio_2t.ok ? "✓" : "✗"}; bruto ${n(v.sankey_fecha_brasil.bruto)} = líquido ${n(v.sankey_fecha_brasil.liquido)} ${v.sankey_fecha_brasil.ok ? "✓" : "✗"}; identidade conferida em cada um dos ${n(NR)} agrupamentos ${v.identidade_por_agrupamento.ok ? "✓" : "✗"}. * nº 28: votos nominais no boletim, contados como nulos no resultado oficial.`;
+  atualiza();
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => desenha(decompoe(agrega())), 150); });
+}
+
+if (typeof window !== "undefined" && !window.__SEM_AUTOLOAD) {
+  fetch("dados.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(inicia).catch(err => {
+    document.querySelector("main").innerHTML = `<div class="card vazio">Não consegui carregar <code>dados.json</code> (${esc(err.message)}).<br>Abra esta página por um servidor (ex.: <code>python -m http.server</code> nesta pasta) — navegadores bloqueiam leitura de arquivo local.</div>`;
+  });
+}
+</script>
+</body>
+</html>

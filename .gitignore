@@ -1,0 +1,7 @@
+# segredos e estado local de publicação: nunca versionar
+.env
+.herenow/
+.herenow-*
+# ambientes e caches
+.venv/
+__pycache__/
