@@ -1,0 +1,4 @@
+duckdb>=1.4
+pyarrow>=14
+# opcional: só para scripts/inspecionar_eventos.py sem baixar o zip inteiro
+remotezip>=0.12

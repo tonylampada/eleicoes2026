@@ -1,0 +1,1066 @@
+{
+ "2t_AC": {
+  "cpu_s_agregacao": 25.8,
+  "download_mb_s": 41.0,
+  "estado": "ok",
+  "etag": "1e86be3a-65ec3b8c7cf00",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 19:56:12 GMT",
+  "n_bu_no_zip": 2270,
+  "n_erros_parse": 0,
+  "n_logs": 2270,
+  "n_votos_log": 453654,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T22:58:45-03:00",
+  "rss_max_mb_processo_filho": 65.6,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=AC/data.parquet": {
+    "bytes": 191505,
+    "linhas": 2270,
+    "sha256": "200ff10da1a055421faf8a02dc176380e97f79280224cb21b1d73340a41c9038"
+   },
+   "parquet/eventos_tipo/turno=2/uf=AC/data.parquet": {
+    "bytes": 25819,
+    "linhas": 11663,
+    "sha256": "ef1f87904fe96805a0c26c9dcec09a8811b02119362ce162c6e907582983cc5a"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 4.6,
+   "download": 12.5,
+   "hash_zip": 0.4
+  },
+  "turno": 2,
+  "uf": "AC",
+  "zip_bytes": 512147002,
+  "zip_sha256": "7e58076367c9a0d8002b7918fe33183a2aee8aaf562d32555cf62ce10d188dc5",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_AC.zip"
+ },
+ "2t_AL": {
+  "cpu_s_agregacao": 101.3,
+  "download_mb_s": 18.7,
+  "estado": "ok",
+  "etag": "6fd89ee0-65ec3c14dd0c0",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 19:58:35 GMT",
+  "n_bu_no_zip": 7101,
+  "n_erros_parse": 0,
+  "n_logs": 7101,
+  "n_votos_log": 1951632,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:00:42-03:00",
+  "rss_max_mb_processo_filho": 128.6,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=AL/data.parquet": {
+    "bytes": 533711,
+    "linhas": 7101,
+    "sha256": "a4607c626a126cabf7ad39bc393d4a3845e1c28def23b420ba529cf38a7b96fc"
+   },
+   "parquet/eventos_tipo/turno=2/uf=AL/data.parquet": {
+    "bytes": 67747,
+    "linhas": 36647,
+    "sha256": "d896ea18d217d47fce22e43a660b6a4ab2891731d6305e869f32eb222863569f"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 14.7,
+   "download": 100.2,
+   "hash_zip": 1.5
+  },
+  "turno": 2,
+  "uf": "AL",
+  "zip_bytes": 1876467424,
+  "zip_sha256": "d53b2869cdfcce90f252e97ae7fb8bc2ecda4bb5d159cccc8e363690c62035ec",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_AL.zip"
+ },
+ "2t_AM": {
+  "cpu_s_agregacao": 121.0,
+  "download_mb_s": 171.8,
+  "estado": "ok",
+  "etag": "7f91b0e4-65ec4c3275640",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 21:10:41 GMT",
+  "n_bu_no_zip": 8157,
+  "n_erros_parse": 0,
+  "n_logs": 8157,
+  "n_votos_log": 2192059,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:01:14-03:00",
+  "rss_max_mb_processo_filho": 208.7,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=AM/data.parquet": {
+    "bytes": 608396,
+    "linhas": 8157,
+    "sha256": "9e77d46ab68ca389c3150db0ea3c6523dadf7ee91808307d53aa77496287954f"
+   },
+   "parquet/eventos_tipo/turno=2/uf=AM/data.parquet": {
+    "bytes": 80385,
+    "linhas": 42484,
+    "sha256": "08271a88cb88173636098b047fd90d2ec0317929f022bc158d0ec765bffc7c90"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 16.7,
+   "download": 12.5,
+   "hash_zip": 1.9
+  },
+  "turno": 2,
+  "uf": "AM",
+  "zip_bytes": 2140254436,
+  "zip_sha256": "93f5b19750880217fdbf777b11e3d6e5caad359d79c3859f57247a5c97fffe88",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_AM.zip"
+ },
+ "2t_AP": {
+  "cpu_s_agregacao": 22.2,
+  "download_mb_s": 23.4,
+  "estado": "ok",
+  "etag": "1a297369-65ec3cb7f1180",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:01:26 GMT",
+  "n_bu_no_zip": 1914,
+  "n_erros_parse": 0,
+  "n_logs": 1914,
+  "n_votos_log": 429975,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:01:38-03:00",
+  "rss_max_mb_processo_filho": 226.7,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=AP/data.parquet": {
+    "bytes": 172107,
+    "linhas": 1914,
+    "sha256": "fd1393f7a62c79f4140046ee2ce1c27e5ff369e57df593e4be9663e129e40b9e"
+   },
+   "parquet/eventos_tipo/turno=2/uf=AP/data.parquet": {
+    "bytes": 21965,
+    "linhas": 9210,
+    "sha256": "75f43fe5655ac37539f40878648deb60a6423e31abfda8447507fa3059ce2a22"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 4.4,
+   "download": 18.7,
+   "hash_zip": 0.4
+  },
+  "turno": 2,
+  "uf": "AP",
+  "zip_bytes": 438924137,
+  "zip_sha256": "cb603592ebd181eb8600bed09a7d7b4b2aa90ff52595fe82116b4193fbeb0315",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_AP.zip"
+ },
+ "2t_BA": {
+  "cpu_s_agregacao": 517.3,
+  "download_mb_s": 196.0,
+  "estado": "ok",
+  "etag": "22513e62f-65ec3ef23d300",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:11:24 GMT",
+  "n_bu_no_zip": 35476,
+  "n_erros_parse": 0,
+  "n_logs": 35476,
+  "n_votos_log": 9422033,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T22:45:01-03:00",
+  "rss_max_mb_processo_filho": 319.1,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=BA/data.parquet": {
+    "bytes": 2430341,
+    "linhas": 35476,
+    "sha256": "78088f76425672b83ad3afc54ff6f95a44ce085b0703eb58469ac2c6641ebdc5"
+   },
+   "parquet/eventos_tipo/turno=2/uf=BA/data.parquet": {
+    "bytes": 325673,
+    "linhas": 193951,
+    "sha256": "c3a1fa5b4671250e4541d9e3f3b69ebd23ac78cd4aabae7f2daaa104958ed1d1"
+   }
+  },
+  "scripts_sha256_16": "c44ad62993c5fe6e",
+  "tempos_s": {
+   "agregacao": 76.2,
+   "download": 47.0,
+   "hash_zip": 9.2
+  },
+  "turno": 2,
+  "uf": "BA",
+  "zip_bytes": 9211995695,
+  "zip_sha256": "a1f717dd927ccdd1dd6a0efef911078011b2c030af01081009f7f2d225b24e5f",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_BA.zip"
+ },
+ "2t_CE": {
+  "cpu_s_agregacao": 308.9,
+  "download_mb_s": 35.1,
+  "estado": "ok",
+  "etag": "160315e63-65ec4e2ec4580",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 21:19:34 GMT",
+  "n_bu_no_zip": 23765,
+  "n_erros_parse": 0,
+  "n_logs": 23765,
+  "n_votos_log": 6024843,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T22:48:39-03:00",
+  "rss_max_mb_processo_filho": 579.3,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=CE/data.parquet": {
+    "bytes": 1627882,
+    "linhas": 23765,
+    "sha256": "b150318f426f8a2d011138a9934b79383ebc41f9709b75572a9bd6aea5727cb8"
+   },
+   "parquet/eventos_tipo/turno=2/uf=CE/data.parquet": {
+    "bytes": 209704,
+    "linhas": 120164,
+    "sha256": "6a1bb4272127f849dd837f2bd9f91e4aaa1e0c3636a73fb662ed76fadaa92ff7"
+   }
+  },
+  "scripts_sha256_16": "c44ad62993c5fe6e",
+  "tempos_s": {
+   "agregacao": 41.4,
+   "download": 168.2,
+   "hash_zip": 6.1
+  },
+  "turno": 2,
+  "uf": "CE",
+  "zip_bytes": 5908815459,
+  "zip_sha256": "bcd08d638ba58a353f0cf41dbbe6fbc7553651678335c334c4223612ad1fd09d",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_CE.zip"
+ },
+ "2t_DF": {
+  "cpu_s_agregacao": 95.1,
+  "download_mb_s": 39.2,
+  "estado": "ok",
+  "etag": "6a3307db-65ec4e95c3880",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 21:21:22 GMT",
+  "n_bu_no_zip": 6969,
+  "n_erros_parse": 0,
+  "n_logs": 6969,
+  "n_votos_log": 1868280,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:02:40-03:00",
+  "rss_max_mb_processo_filho": 226.7,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=DF/data.parquet": {
+    "bytes": 497995,
+    "linhas": 6969,
+    "sha256": "6926a299c2da39d7ad6c79e819f8fe7e241053ce76bf09f079602f16fb01108c"
+   },
+   "parquet/eventos_tipo/turno=2/uf=DF/data.parquet": {
+    "bytes": 66525,
+    "linhas": 36188,
+    "sha256": "6df40040ed9057bf04d84e647c5e0eef2ac836f9c29dbafc7f0a201b07423b91"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 13.4,
+   "download": 45.5,
+   "hash_zip": 1.8
+  },
+  "turno": 2,
+  "uf": "DF",
+  "zip_bytes": 1781729243,
+  "zip_sha256": "72d9cd1871ab14676ce8cba670e54e9c8fddf346223c68b7b046a2f340f9cc33",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_DF.zip"
+ },
+ "2t_ES": {
+  "cpu_s_agregacao": 130.3,
+  "download_mb_s": 28.8,
+  "estado": "ok",
+  "etag": "9003c381-65ec40ebafb80",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:20:14 GMT",
+  "n_bu_no_zip": 9844,
+  "n_erros_parse": 0,
+  "n_logs": 9844,
+  "n_votos_log": 2409518,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:04:26-03:00",
+  "rss_max_mb_processo_filho": 226.7,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=ES/data.parquet": {
+    "bytes": 691956,
+    "linhas": 9844,
+    "sha256": "aad03d3bfe8e262b6741fc9f8049851308887925f6eb8d3212cae08990e509c6"
+   },
+   "parquet/eventos_tipo/turno=2/uf=ES/data.parquet": {
+    "bytes": 93815,
+    "linhas": 52694,
+    "sha256": "0565ee5a0c650f86af0b1de7c9369db0339808fbcea3b04bad5f819beb67d994"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 18.3,
+   "download": 84.0,
+   "hash_zip": 2.6
+  },
+  "turno": 2,
+  "uf": "ES",
+  "zip_bytes": 2416165761,
+  "zip_sha256": "0c94c2c94c57ca31915a9d5f2dc3c54b043cdef237eb40241253c44dec7cef44",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_ES.zip"
+ },
+ "2t_GO": {
+  "cpu_s_agregacao": 207.1,
+  "download_mb_s": 22.5,
+  "estado": "ok",
+  "etag": "e8eb1d9f-65ec41c14f380",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:23:58 GMT",
+  "n_bu_no_zip": 15686,
+  "n_erros_parse": 0,
+  "n_logs": 15686,
+  "n_votos_log": 4047280,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:07:53-03:00",
+  "rss_max_mb_processo_filho": 235.9,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=GO/data.parquet": {
+    "bytes": 1079174,
+    "linhas": 15686,
+    "sha256": "c3fa2dabd1b7eecd47e79f3e63ab100b52aa4c16dd302447fb240eefd0191e82"
+   },
+   "parquet/eventos_tipo/turno=2/uf=GO/data.parquet": {
+    "bytes": 139291,
+    "linhas": 80150,
+    "sha256": "8d1a4b1686fb267c3584197a3811f6b0c11f0471b9ebd1eb90ad0d2c491ece16"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 27.8,
+   "download": 173.4,
+   "hash_zip": 4.2
+  },
+  "turno": 2,
+  "uf": "GO",
+  "zip_bytes": 3907722655,
+  "zip_sha256": "1f53040307bfced0e14eb8378daaf48614abf17c2c6eccf1c872e5abf6bc0dc5",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_GO.zip"
+ },
+ "2t_MA": {
+  "cpu_s_agregacao": 219.3,
+  "download_mb_s": 177.2,
+  "estado": "ok",
+  "etag": "fd9bf906-65ec431100b80",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:29:50 GMT",
+  "n_bu_no_zip": 18093,
+  "n_erros_parse": 0,
+  "n_logs": 18093,
+  "n_votos_log": 4127735,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:08:52-03:00",
+  "rss_max_mb_processo_filho": 313.0,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=MA/data.parquet": {
+    "bytes": 1274064,
+    "linhas": 18093,
+    "sha256": "ed535ea18897025cc2eeb981d9cd8a36cc01bda5ccc8a48b7d0ebe2a16aabcec"
+   },
+   "parquet/eventos_tipo/turno=2/uf=MA/data.parquet": {
+    "bytes": 168855,
+    "linhas": 93747,
+    "sha256": "e82f4ad83c996527a204c346ea29e7d146d20ccabe0296a2e6a33f3b59aa7dcd"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 28.6,
+   "download": 24.0,
+   "hash_zip": 3.7
+  },
+  "turno": 2,
+  "uf": "MA",
+  "zip_bytes": 4254857478,
+  "zip_sha256": "456e577fa8080f514c33b88bbc7425afb61191f905f83ba7e1dc276e64f59a2d",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_MA.zip"
+ },
+ "2t_MG": {
+  "cpu_s_agregacao": 888.8,
+  "download_mb_s": 140.8,
+  "estado": "ok",
+  "etag": "2ee7cdd98-65ec46bd53600",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:46:16 GMT",
+  "n_bu_no_zip": 52062,
+  "n_erros_parse": 0,
+  "n_logs": 52062,
+  "n_votos_log": 13044203,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:13:31-03:00",
+  "rss_max_mb_processo_filho": 536.1,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=MG/data.parquet": {
+    "bytes": 3395863,
+    "linhas": 52062,
+    "sha256": "18797c946b3ac87e34a9a524b0693d59ffe48528b93b5f7e178caf32eadace27"
+   },
+   "parquet/eventos_tipo/turno=2/uf=MG/data.parquet": {
+    "bytes": 459639,
+    "linhas": 280805,
+    "sha256": "c485a149e49778ab421ceae7147c09761b97c8654bd73e10a0074b34adeca2f0"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 169.6,
+   "download": 89.4,
+   "hash_zip": 15.2
+  },
+  "turno": 2,
+  "uf": "MG",
+  "zip_bytes": 12591095192,
+  "zip_sha256": "02be6c27584f97b9ac80c7a6372febe12a6a7c350e072492ad387797bf8ace73",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_MG.zip"
+ },
+ "2t_MS": {
+  "cpu_s_agregacao": 83.6,
+  "download_mb_s": 22.7,
+  "estado": "ok",
+  "etag": "6049ec28-65ec472452900",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:48:04 GMT",
+  "n_bu_no_zip": 7106,
+  "n_erros_parse": 0,
+  "n_logs": 7106,
+  "n_votos_log": 1594460,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:29:36-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=MS/data.parquet": {
+    "bytes": 507556,
+    "linhas": 7106,
+    "sha256": "dd0ca7914280601007981709fc9007c19a2960d77880bb4a5667bef42936f0a1"
+   },
+   "parquet/eventos_tipo/turno=2/uf=MS/data.parquet": {
+    "bytes": 63170,
+    "linhas": 34398,
+    "sha256": "3288b0dcf3b7112ad40ffd7ccdad3b8dac737eca51ab4ec0ab74485a3d2bdf5c"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 11.6,
+   "download": 71.1,
+   "hash_zip": 1.4
+  },
+  "turno": 2,
+  "uf": "MS",
+  "zip_bytes": 1615457320,
+  "zip_sha256": "227982387d2a3e1266fa0fc71575928e68e1bfba2bff91fca328b9d322872811",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_MS.zip"
+ },
+ "2t_MT": {
+  "cpu_s_agregacao": 106.2,
+  "download_mb_s": 153.1,
+  "estado": "ok",
+  "etag": "792f4c9f-65ec47abbe880",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:50:26 GMT",
+  "n_bu_no_zip": 8287,
+  "n_erros_parse": 0,
+  "n_logs": 8287,
+  "n_votos_log": 2085334,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:30:07-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=MT/data.parquet": {
+    "bytes": 609554,
+    "linhas": 8287,
+    "sha256": "eee64fa8390ffdd808dad1f81be2032b122f03c54d681d81dc1a80a0fac47eb0"
+   },
+   "parquet/eventos_tipo/turno=2/uf=MT/data.parquet": {
+    "bytes": 82796,
+    "linhas": 41894,
+    "sha256": "0cca45afef2719afea657c7b5e324f778064611794816dd5e9c5c607436d1cc5"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 14.6,
+   "download": 13.3,
+   "hash_zip": 1.6
+  },
+  "turno": 2,
+  "uf": "MT",
+  "zip_bytes": 2033142943,
+  "zip_sha256": "7c5dd415579fe80fd65be77302812cf98ae8ad3924c46ade4375c4a23d1e344b",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_MT.zip"
+ },
+ "2t_PA": {
+  "cpu_s_agregacao": 253.9,
+  "download_mb_s": 24.4,
+  "estado": "ok",
+  "etag": "12a9bf7be-65ec48c237980",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:55:18 GMT",
+  "n_bu_no_zip": 20827,
+  "n_erros_parse": 0,
+  "n_logs": 20827,
+  "n_votos_log": 4989573,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:34:11-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=PA/data.parquet": {
+    "bytes": 1446959,
+    "linhas": 20827,
+    "sha256": "b5ea5aee657bba58f1eb61f864514536e4fb1c2f5659e290a13a516f3c0ac438"
+   },
+   "parquet/eventos_tipo/turno=2/uf=PA/data.parquet": {
+    "bytes": 190695,
+    "linhas": 106768,
+    "sha256": "fef4156fc2299f1a2b45a33763ca6dcefdea0a98d2e371f28a2894128ce6bac3"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 32.3,
+   "download": 205.3,
+   "hash_zip": 4.4
+  },
+  "turno": 2,
+  "uf": "PA",
+  "zip_bytes": 5009831870,
+  "zip_sha256": "8cfa6479f1026fb518e07193d80d11319a9ad57f130723b52b95a32f0d04f96d",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_PA.zip"
+ },
+ "2t_PB": {
+  "cpu_s_agregacao": 135.8,
+  "download_mb_s": 33.8,
+  "estado": "ok",
+  "etag": "9fa658c0-65ec497e174c0",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:58:35 GMT",
+  "n_bu_no_zip": 10712,
+  "n_erros_parse": 0,
+  "n_logs": 10712,
+  "n_votos_log": 2743559,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:35:52-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=PB/data.parquet": {
+    "bytes": 762907,
+    "linhas": 10712,
+    "sha256": "f640959385572c99a5a27d3c590d65d9496a0b5f1b87126ef2e924de8d9a4ef8"
+   },
+   "parquet/eventos_tipo/turno=2/uf=PB/data.parquet": {
+    "bytes": 94381,
+    "linhas": 52980,
+    "sha256": "c4ab27daec40e5777fcfba35f228214e5d266c1ab5ac27c717a04d2b10221420"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 18.4,
+   "download": 79.3,
+   "hash_zip": 2.0
+  },
+  "turno": 2,
+  "uf": "PB",
+  "zip_bytes": 2678479040,
+  "zip_sha256": "1199b134a2ff11efe9325c6f72be03fafdcbcd60140ac19d129102899394825e",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_PB.zip"
+ },
+ "2t_PE": {
+  "cpu_s_agregacao": 308.4,
+  "download_mb_s": 227.4,
+  "estado": "ok",
+  "etag": "151e24340-65ec4af01ddc0",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 21:05:03 GMT",
+  "n_bu_no_zip": 21418,
+  "n_erros_parse": 0,
+  "n_logs": 21418,
+  "n_votos_log": 6126467,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:37:03-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=PE/data.parquet": {
+    "bytes": 1481512,
+    "linhas": 21418,
+    "sha256": "8f5ee60a504a76907264a988ad74ac9df9981126e64b064f5128e39e61575501"
+   },
+   "parquet/eventos_tipo/turno=2/uf=PE/data.parquet": {
+    "bytes": 202941,
+    "linhas": 113482,
+    "sha256": "dfca2e427fca8165e30eda9549a7dd78a91b358d6f062a69c0164d04c52227de"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 40.0,
+   "download": 24.9,
+   "hash_zip": 4.1
+  },
+  "turno": 2,
+  "uf": "PE",
+  "zip_bytes": 5668750144,
+  "zip_sha256": "a7fdba88734da5bbc10fff31efd8dcb5e20016491b58dae7916f3428a3286e66",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_PE.zip"
+ },
+ "2t_PI": {
+  "cpu_s_agregacao": 117.9,
+  "download_mb_s": 33.0,
+  "estado": "ok",
+  "etag": "8f2cb0bc-65ec4f331ebc0",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 21:24:07 GMT",
+  "n_bu_no_zip": 10225,
+  "n_erros_parse": 0,
+  "n_logs": 10225,
+  "n_votos_log": 2239829,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:38:36-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=PI/data.parquet": {
+    "bytes": 741711,
+    "linhas": 10225,
+    "sha256": "a4f94c567a8f5bef6d17531e0ed2621735baae46e51e152bbb668de9d06769f2"
+   },
+   "parquet/eventos_tipo/turno=2/uf=PI/data.parquet": {
+    "bytes": 92271,
+    "linhas": 51400,
+    "sha256": "b9fde06da2698d9015ea724e8f7417b4bce9c6d5ee3ddad0abedc3ba9cecb4c0"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 16.1,
+   "download": 72.8,
+   "hash_zip": 2.1
+  },
+  "turno": 2,
+  "uf": "PI",
+  "zip_bytes": 2402070716,
+  "zip_sha256": "7a89a64078bb7ace8084d9df47de524461be973a88ac514db897d5ee440178e3",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_PI.zip"
+ },
+ "2t_PR": {
+  "cpu_s_agregacao": 338.7,
+  "download_mb_s": 297.1,
+  "estado": "ok",
+  "etag": "1940a3943-65ec50bee5180",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 21:31:02 GMT",
+  "n_bu_no_zip": 27142,
+  "n_erros_parse": 0,
+  "n_logs": 27142,
+  "n_votos_log": 7059339,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:39:49-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=PR/data.parquet": {
+    "bytes": 1799929,
+    "linhas": 27142,
+    "sha256": "1782defd17a15c8dc838d94f5cb799239852b6a0eb659817cc03a9adead36449"
+   },
+   "parquet/eventos_tipo/turno=2/uf=PR/data.parquet": {
+    "bytes": 224924,
+    "linhas": 130493,
+    "sha256": "267b5ae87e12b6394dcbed655a9592fada5722e72f54393eecdf42c765958b61"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 43.4,
+   "download": 22.8,
+   "hash_zip": 5.3
+  },
+  "turno": 2,
+  "uf": "PR",
+  "zip_bytes": 6778665283,
+  "zip_sha256": "8f8233708e200d4683ae4da65c5586eb584c03eadb2e54414ff1200017e8a530",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_PR.zip"
+ },
+ "2t_RJ": {
+  "cpu_s_agregacao": 560.8,
+  "download_mb_s": 35.8,
+  "estado": "ok",
+  "etag": "23e72ced8-65ec4931cc0c0",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 20:57:15 GMT",
+  "n_bu_no_zip": 37675,
+  "n_erros_parse": 0,
+  "n_logs": 37675,
+  "n_votos_log": 10077449,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:45:46-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=RJ/data.parquet": {
+    "bytes": 2510511,
+    "linhas": 37675,
+    "sha256": "cb322567e721e71a62067ee64d4f7fa33104b487409c63c3aafce4483143a127"
+   },
+   "parquet/eventos_tipo/turno=2/uf=RJ/data.parquet": {
+    "bytes": 321988,
+    "linhas": 192812,
+    "sha256": "110d01eb4c36a68fb617e7639ba87fc6fd0d0189f6135717168c679479747912"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 75.1,
+   "download": 268.9,
+   "hash_zip": 9.4
+  },
+  "turno": 2,
+  "uf": "RJ",
+  "zip_bytes": 9637646040,
+  "zip_sha256": "c390992824f65cefbe440357e11a1abbb9630a90a290873185a96b3de0c44a27",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_RJ.zip"
+ },
+ "2t_RN": {
+  "cpu_s_agregacao": 130.7,
+  "download_mb_s": 158.0,
+  "estado": "ok",
+  "etag": "83c3f023-65ec25ed5cc00",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 18:19:28 GMT",
+  "n_bu_no_zip": 8115,
+  "n_erros_parse": 0,
+  "n_logs": 8115,
+  "n_votos_log": 2232823,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:48:21-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=RN/data.parquet": {
+    "bytes": 585320,
+    "linhas": 8115,
+    "sha256": "0e779d09340374d6a8008f997d4c921eb4b2be2d6fcf3a0899dc2d353c6d82a6"
+   },
+   "parquet/eventos_tipo/turno=2/uf=RN/data.parquet": {
+    "bytes": 77122,
+    "linhas": 42306,
+    "sha256": "551c3d98ffe57cdde87f5ce53a81ddf23cf353086f4065b1072d5e928dbdb921"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 17.7,
+   "download": 14.0,
+   "hash_zip": 1.6
+  },
+  "turno": 2,
+  "uf": "RN",
+  "zip_bytes": 2210656291,
+  "zip_sha256": "abf86c7af5d4c1151385b4d4b5b7a6e9304dd1d4cd4d92fcb000ed253a840e65",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_RN.zip"
+ },
+ "2t_RO": {
+  "cpu_s_agregacao": 57.5,
+  "download_mb_s": 31.6,
+  "estado": "ok",
+  "etag": "3e6c2061-65ec270e535c0",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 18:24:31 GMT",
+  "n_bu_no_zip": 4698,
+  "n_erros_parse": 0,
+  "n_logs": 4698,
+  "n_votos_log": 988489,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:49:03-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=RO/data.parquet": {
+    "bytes": 349410,
+    "linhas": 4698,
+    "sha256": "fde2d682054d3e65f7986eeafd3df70a3d304d7e60b7125862357a7f395ef611"
+   },
+   "parquet/eventos_tipo/turno=2/uf=RO/data.parquet": {
+    "bytes": 41756,
+    "linhas": 22259,
+    "sha256": "3f5c56c92cf55d493590b2d6844bde315928bd3b6b24d61377f002f8426eca38"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 7.6,
+   "download": 33.2,
+   "hash_zip": 0.8
+  },
+  "turno": 2,
+  "uf": "RO",
+  "zip_bytes": 1047273569,
+  "zip_sha256": "ffebcc0c2a74eaf3fd07200a3126623062ce33da1845abeeed84f5838f8b4150",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_RO.zip"
+ },
+ "2t_RR": {
+  "cpu_s_agregacao": 16.4,
+  "download_mb_s": 236.1,
+  "estado": "ok",
+  "etag": "13604bcc-65ec276bc9240",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 18:26:09 GMT",
+  "n_bu_no_zip": 1519,
+  "n_erros_parse": 0,
+  "n_logs": 1519,
+  "n_votos_log": 308597,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:49:07-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=RR/data.parquet": {
+    "bytes": 140969,
+    "linhas": 1519,
+    "sha256": "e8973cc5b3e6613b9a44c6cf73a94b29cfe704f68a6cdc0ab652247b98203823"
+   },
+   "parquet/eventos_tipo/turno=2/uf=RR/data.parquet": {
+    "bytes": 18347,
+    "linhas": 7026,
+    "sha256": "d717646fca224de05923c06ebc262ac19b615613f42f320668e791be2aa0112e"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 2.4,
+   "download": 1.4,
+   "hash_zip": 0.3
+  },
+  "turno": 2,
+  "uf": "RR",
+  "zip_bytes": 325077964,
+  "zip_sha256": "fdc8faa9bd14d30a419d8f642a37dc30f2dc1c3eedf808b63e92b4fdf06f5f43",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_RR.zip"
+ },
+ "2t_RS": {
+  "cpu_s_agregacao": 351.4,
+  "download_mb_s": 245.4,
+  "estado": "ok",
+  "etag": "19597f8ee-65ec2e0c5f500",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 18:55:48 GMT",
+  "n_bu_no_zip": 27547,
+  "n_erros_parse": 0,
+  "n_logs": 27547,
+  "n_votos_log": 6889636,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:50:31-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=RS/data.parquet": {
+    "bytes": 1885866,
+    "linhas": 27547,
+    "sha256": "c8c72f87a8a0333a4dc33cbd2668bee06341d723609efdaccc7979de0d942b1e"
+   },
+   "parquet/eventos_tipo/turno=2/uf=RS/data.parquet": {
+    "bytes": 230539,
+    "linhas": 133506,
+    "sha256": "bc17e23d5468a46262e11c5a1b71ab6560461e846febbaac1fcf617fdf54d353"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 47.9,
+   "download": 27.7,
+   "hash_zip": 5.5
+  },
+  "turno": 2,
+  "uf": "RS",
+  "zip_bytes": 6804732142,
+  "zip_sha256": "a1ab91ef8533ae952c9d8c0a38dd2581c1f9786e602fdf0ffcae6c1fef3bab0a",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_RS.zip"
+ },
+ "2t_SC": {
+  "cpu_s_agregacao": 232.4,
+  "download_mb_s": 264.9,
+  "estado": "ok",
+  "etag": "10929d09f-65ec324c83c40",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 19:14:49 GMT",
+  "n_bu_no_zip": 17326,
+  "n_erros_parse": 0,
+  "n_logs": 17326,
+  "n_votos_log": 4762303,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:52:23-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=SC/data.parquet": {
+    "bytes": 1194916,
+    "linhas": 17326,
+    "sha256": "d807af11a10fbf336c00bc3eb0941ad972b1e08165ad0ec869b8f695b5ed3631"
+   },
+   "parquet/eventos_tipo/turno=2/uf=SC/data.parquet": {
+    "bytes": 146070,
+    "linhas": 83495,
+    "sha256": "d0b7fb25be5d822d5aa05a477d7ded6db799629970f97c702da31cbd285bfa26"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 30.1,
+   "download": 16.8,
+   "hash_zip": 3.7
+  },
+  "turno": 2,
+  "uf": "SC",
+  "zip_bytes": 4448702623,
+  "zip_sha256": "19fc63bc878565a4bc72ad88fec23e169578fda86f7e33f098a7cc40df602793",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_SC.zip"
+ },
+ "2t_SE": {
+  "cpu_s_agregacao": 74.4,
+  "download_mb_s": 170.1,
+  "estado": "ok",
+  "etag": "56911ecf-65ec224e64100",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 18:03:16 GMT",
+  "n_bu_no_zip": 5923,
+  "n_erros_parse": 0,
+  "n_logs": 5923,
+  "n_votos_log": 1466659,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:52:44-03:00",
+  "rss_max_mb_processo_filho": 847.8,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=SE/data.parquet": {
+    "bytes": 445184,
+    "linhas": 5923,
+    "sha256": "f6dd22a136b62b10af7d90856a970512525b7e929f963be4cea1ba0331fd3e35"
+   },
+   "parquet/eventos_tipo/turno=2/uf=SE/data.parquet": {
+    "bytes": 56955,
+    "linhas": 29767,
+    "sha256": "315bf5b4787d1b977c43ccd4da48c1c47a6f256b4cf415a899c164105b632a2e"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 10.2,
+   "download": 8.5,
+   "hash_zip": 1.2
+  },
+  "turno": 2,
+  "uf": "SE",
+  "zip_bytes": 1452351183,
+  "zip_sha256": "ff9098c61408a42e5c1d1bdf1b92e5d7a73965db2576a662befee7bd44346abf",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_SE.zip"
+ },
+ "2t_SP": {
+  "cpu_s_agregacao": 1349.5,
+  "download_mb_s": 148.7,
+  "estado": "ok",
+  "etag": "5ff4cdf8b-65ec3647fe180",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 19:32:38 GMT",
+  "n_bu_no_zip": 103656,
+  "n_erros_parse": 0,
+  "n_logs": 103655,
+  "n_votos_log": 27364121,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-29T23:59:20-03:00",
+  "rss_max_mb_processo_filho": 949.7,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=SP/data.parquet": {
+    "bytes": 6314468,
+    "linhas": 103655,
+    "sha256": "2f63b72627be8827a2cf022d7781746fec952dae77011a0b752f17315fcb0fbe"
+   },
+   "parquet/eventos_tipo/turno=2/uf=SP/data.parquet": {
+    "bytes": 840869,
+    "linhas": 509147,
+    "sha256": "522412bf480039016a5b5a96143ae7fe31910ad46a7711e1550b308440f6fd95"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 185.7,
+   "download": 173.2,
+   "hash_zip": 29.7
+  },
+  "turno": 2,
+  "uf": "SP",
+  "zip_bytes": 25758064523,
+  "zip_sha256": "3c3b4692e6c692a5aa301b300bbe7bd0aa7ecdb4f6e8bd72bc66c6dd7b7d933b",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_SP.zip"
+ },
+ "2t_TO": {
+  "cpu_s_agregacao": 55.5,
+  "download_mb_s": 38.6,
+  "estado": "ok",
+  "etag": "3ccf4425-65ec235d3c000",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 18:08:00 GMT",
+  "n_bu_no_zip": 4384,
+  "n_erros_parse": 0,
+  "n_logs": 4384,
+  "n_votos_log": 954763,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-30T00:04:17-03:00",
+  "rss_max_mb_processo_filho": 1497.9,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=TO/data.parquet": {
+    "bytes": 331604,
+    "linhas": 4384,
+    "sha256": "0931dc071b10f3cc1ed0fef6a68c8955e22c05ecb9ab77df9084447449ebb57f"
+   },
+   "parquet/eventos_tipo/turno=2/uf=TO/data.parquet": {
+    "bytes": 43069,
+    "linhas": 22412,
+    "sha256": "99698ca347c4e1627cf3263ad2150e10110667effbdb42369728d6e92ee4833a"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 7.8,
+   "download": 26.5,
+   "hash_zip": 0.8
+  },
+  "turno": 2,
+  "uf": "TO",
+  "zip_bytes": 1020216357,
+  "zip_sha256": "1918470eebba70d1700e1f85cee2a1021390235e3497539a55ea28845c2d518b",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_TO.zip"
+ },
+ "2t_ZZ": {
+  "cpu_s_agregacao": 11.3,
+  "download_mb_s": 36.5,
+  "estado": "ok",
+  "etag": "c31b63d-65ec23b404cc0",
+  "jobs": 8,
+  "last_modified": "Mon, 26 Oct 2026 18:09:31 GMT",
+  "n_bu_no_zip": 1281,
+  "n_erros_parse": 0,
+  "n_logs": 1281,
+  "n_votos_log": 380612,
+  "parser_version": "1.1.0",
+  "processado_em": "2026-10-30T00:04:25-03:00",
+  "rss_max_mb_processo_filho": 1497.9,
+  "saidas": {
+   "parquet/eventos_secao/turno=2/uf=ZZ/data.parquet": {
+    "bytes": 130972,
+    "linhas": 1281,
+    "sha256": "88fb76a6baf403f1281e1e915549f338f2972ffab4ec43c7d133b9795a798e64"
+   },
+   "parquet/eventos_tipo/turno=2/uf=ZZ/data.parquet": {
+    "bytes": 21577,
+    "linhas": 8163,
+    "sha256": "6e213814c415c3320068cecd831c9eb2003bda27553c6d93d0bda7c19545c190"
+   }
+  },
+  "scripts_sha256_16": "23fe540af1124050",
+  "tempos_s": {
+   "agregacao": 1.9,
+   "download": 5.6,
+   "hash_zip": 0.2
+  },
+  "turno": 2,
+  "uf": "ZZ",
+  "zip_bytes": 204584509,
+  "zip_sha256": "4792b34c48a933772b7c2165fb51e1569252dfa4e58b55f27e174d0dcc9db29c",
+  "zip_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/arqurnatot/bu_imgbu_logjez_rdv_vscmr_2026_2t_ZZ.zip"
+ }
+}

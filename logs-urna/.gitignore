@@ -1,0 +1,8 @@
+# dados brutos, intermediários e assets: reconstruídos por ./run.sh all ou baixados por ./run.sh fetch
+data/
+.venv/
+__pycache__/
+*.duckdb.tmp
+*.duckdb.wal
+*.parquet.tmp
+*.part

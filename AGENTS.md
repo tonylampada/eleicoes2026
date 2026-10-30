@@ -4,7 +4,9 @@
 25/10), a partir dos boletins de urna (arquivos `buweb`) do TSE, em Parquet + DuckDB. Presidente bate
 exatamente com o oficial (2º turno: LULA 64.256.232 × FLAVIO BOLSONARO 59.826.041). Dados e scripts em
 [`totalizacoes/`](totalizacoes/) (detalhes em [`totalizacoes/README.md`](totalizacoes/README.md)); análises prontas em
-[`micro-analises/`](micro-analises/). Tudo é estatística descritiva sobre dados públicos; não substitui o
+[`micro-analises/`](micro-analises/). Métricas por seção extraídas dos **logs das urnas** (horários de
+abertura/encerramento, ritmo e proximidade dos votos, tipo de habilitação, incidentes) em
+[`logs-urna/`](logs-urna/) (detalhes em [`logs-urna/README.md`](logs-urna/README.md)); 2º turno completo. Tudo é estatística descritiva sobre dados públicos; não substitui o
 resultado oficial (ver "Escopo e limites" no [`README.md`](README.md)).
 
 ## ATALHO: usar os dados sem reconstruir
@@ -73,6 +75,32 @@ Nomes conferidos em `totalizacoes/scripts/build_parquet.py`.
 Códigos: `cd_cargo` 1 Presidente, 3 Governador, 5 Senador, 6 Dep. Federal, 7 Dep. Estadual, 8 Dep. Distrital.
 `cd_tipo_votavel` 1 nominal, 2 branco, 3 nulo, 4 legenda. `nr_votavel` 13 = LULA, 22 = FLAVIO; 95 branco, 96 nulo.
 `sg_uf = 'ZZ'` = exterior.
+
+## Logs de urna (`logs-urna/`, opcional)
+
+```bash
+cd logs-urna
+python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
+./run.sh fetch          # agregados prontos do Release logs-urna-2026-10-29: data/db/eventos.duckdb (85,2 MB) + Parquets (tar 38,2 MB)
+./run.sh all            # reconstruir do zero: baixa os zips do TSE UF por UF, agrega e apaga (UFS=BA,CE padrão; UFS=TODAS ≈ 124 GB de download)
+```
+
+- Mesmo padrão de `totalizacoes/`: sem login (gh ou `curl -C -` na URL direta), SHA-256, idempotente, validação no fim.
+  Dados fora do git (`logs-urna/data/`), publicados só como assets de Release (`./run.sh dist` → `gh release create`).
+- Cobertura (2º turno): 27 UFs + exterior, 499.177 seções com log (499.205 no banco principal; 28 sem log publicado:
+  1 em Guarulhos-SP e 27 no exterior); 128.235.225 votos no log.
+- `eventos_secao`: 1 linha por `nr_turno, sg_uf, cd_municipio, nr_zona, nr_secao` (mesma chave de `secoes`).
+  Principais colunas: `n_votos_log`, `hr_abertura_log`, `hr_encerramento_log`, `hr_primeiro_voto`, `hr_ultimo_voto`,
+  `votos_por_hora` (lista de 24; SQL `votos_por_hora[h+1]`), `intervalo_mediano_s`, `velocidade_media_votos_hora`,
+  `n_pares_lt{5,10,20,30}s` / `pct_pares_lt…` (% 0–100), `maior_rajada_lt{10,20}s`, `n_hab_biometrica`, `n_hab_manual`,
+  `n_hab_ano_nascimento`, `n_id_titulo`, `n_id_cpf`, contadores de incidentes (`n_reinicio_votacao`, `n_bateria_interna`…).
+- `eventos_tipo` (2.540.011 linhas) / `eventos_dicionario`: eventos fora da rotina por seção, mensagem com dígitos trocados por `#`.
+- Juntar com o banco principal: `ATTACH '../totalizacoes/data/db/eleicoes2026.duckdb' AS tse (READ_ONLY)`; exemplos em
+  `logs-urna/exemplo_attach.sql`.
+- Horários = relógio da urna (hora local, como `dt_abertura`). Validado: votos do log = `qt_comparecimento` em 499.170
+  de 499.177 seções (7 divergem), abertura/encerramento = BU com diferença de 0–1 s na quase totalidade, habilitação
+  manual = `qt_elei_biom_sem_habilitacao` em 99,8%. Divergências e limites em `logs-urna/README.md` e `logs-urna/validacao.md`.
+- Tom descritivo: ritmo/proximidade/incidentes não indicam voto individual, causa ou intenção.
 
 ## Exemplos (DuckDB, testados no banco completo)
 
